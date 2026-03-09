@@ -1,0 +1,264 @@
+draw_config:
+  # Make long legends smaller sooner (default is 7).
+  shrink_wide_legends: 5
+  line_spacing: 1
+  # Add more space from key edge to hold/shifted legends.
+  small_pad: 8
+
+  # Slightly smaller text overall so legends fit better.
+  svg_extra_style: |
+    .tap { font-size: 14px; }
+    .hold { font-size: 12px; }
+    .shifted { font-size: 12px; }
+
+parse_config:
+  # Hide the "transparent" key marker (default is a big ▽).
+  trans_legend: {t: "", type: "trans"}
+
+  # Shorten macro/binding names so they fit on keys.
+  # Keys here must match the raw binding text in the ZMK keymap.
+  raw_binding_map:
+    "&none": ""
+    "&lang_toggle": "Lang"
+    "&key_repeat": "Rep"
+
+    "&mac_cmd_up": "⌘↑"
+    "&mac_cmd_dn": "⌘↓"
+    "&mac_word_left": "⌥←"
+    "&mac_word_right": "⌥→"
+    "&mac_line_left": "⌘←"
+    "&mac_line_right": "⌘→"
+
+    "&mac_tab_prev": "Tab←"
+    "&mac_tab_next": "Tab→"
+    "&mac_win_prev": "Win←"
+    "&mac_win_next": "Win→"
+    "&mac_space_left": "Sp←"
+    "&mac_space_right": "Sp→"
+
+    "&mac_mc_up": "MC↑"
+    "&mac_mc_dn": "MC↓"
+
+    "&mac_ctrl_f2": "Menu"
+    "&mac_ctrl_f3": "Dock"
+    "&mac_ctrl_f4": "WinFcs"
+
+    # Keep these on one line.
+    "&kp PG_UP": "PgUp"
+    "&kp PG_DN": "PgDn"
+
+    "&mac_spotlight": "Spot"
+    "&mac_help": "Help"
+    "&mac_scr_refresh": "ScrRfrsh"
+    "&mac_hidden_files": "HidFiles"
+    "&mac_paste_match": "PstMatch"
+    "&mac_copy_path": "CpPath"
+    "&mac_cmd_shift_g": "GoFolder"
+
+    "&mac_lock": "Lock"
+    "&mac_emoji": "Emoji"
+
+    # NAV layer: zoom controls (Cmd+-, Cmd+Shift+=, Cmd+0).
+    "&mac_zoom_out": "Zm-"
+    "&mac_zoom_in": "Zm+"
+    "&mac_zoom_reset": "Zm0"
+
+    "&mac_ss_4": "SS4"
+    "&mac_ss_5": "SS5"
+    "&mac_ss_clip_4": "SS4/Clip"
+    "&mac_ss_clip_5": "SS5/Clip"
+
+    # MAC layer: spaces and Cmd+number rows.
+    "&mac_desk_1": "Sp1"
+    "&mac_desk_2": "Sp2"
+    "&mac_desk_3": "Sp3"
+    "&mac_desk_4": "Sp4"
+    "&mac_desk_5": "Sp5"
+    "&mac_desk_6": "Sp6"
+    "&mac_desk_7": "Sp7"
+    "&mac_desk_8": "Sp8"
+    "&mac_desk_9": "Sp9"
+    "&mac_desk_10": "Sp10"
+
+    "&mac_tab_1": "⌘1"
+    "&mac_tab_2": "⌘2"
+    "&mac_tab_3": "⌘3"
+    "&mac_tab_4": "⌘4"
+    "&mac_tab_5": "⌘5"
+    "&mac_tab_6": "⌘6"
+    "&mac_tab_7": "⌘7"
+    "&mac_tab_8": "⌘8"
+    "&mac_tab_9": "⌘9"
+    "&mac_tab_10": "⌘0"
+
+    # UTIL layer: show hold-only actions as a short label.
+    "&util_boot_hold": "Boot*"
+    "&util_boot_hold 0 0": "Boot*"
+    "&util_reset_hold": "Reset*"
+    "&util_reset_hold 0 0": "Reset*"
+    "&util_bt_clr_hold": "BT Clr*"
+    "&util_bt_clr_hold 0 0": "BT Clr*"
+    "&util_usb_hold": "USB*"
+    "&util_usb_hold 0 0": "USB*"
+    "&util_ble_hold": "BLE*"
+    "&util_ble_hold 0 0": "BLE*"
+
+    # UTIL layer: BLE controls.
+    "&bt BT_SEL 0": "BT0"
+    "&bt BT_SEL 1": "BT1"
+    "&bt BT_SEL 2": "BT2"
+    "&bt BT_SEL 3": "BT3"
+    "&bt BT_SEL 4": "BT4"
+    "&bt BT_CLR": "BT Clr"
+
+    "&out OUT_USB": "USB"
+    "&out OUT_BLE": "BLE"
+
+    "&ug_dn_ht": "UG-/Hue-"
+    "&ug_dn_ht 0 0": {t: "UG-", h: "Hue-"}
+    "&ug_up_ht": "UG+/Hue+"
+    "&ug_up_ht 0 0": {t: "UG+", h: "Hue+"}
+    "&rgb_ug RGB_TOG": "UG Tog"
+
+    "&kp C_BRI_DN": "Br-"
+    "&kp C_BRI_UP": "Br+"
+    "&kp C_VOL_DN": "Vol-"
+    "&kp C_VOL_UP": "Vol+"
+    "&kp C_MUTE": "Mute"
+
+    # SYM layer: render real symbols (avoid "Sft+..." and "KP ...")
+    "&sym_dash_ht 0 0": {t: "–", h: "—"}
+    "&sym_laquo": "«"
+    "&sym_raquo": "»"
+    "&sym_lsquo": "‘"
+    "&kp SEMI": ";"
+    "&num_ne": "≠"
+    "&num_approx": "≈"
+    "&num_infty": "∞"
+    "&num_ring": "˚"
+    "&num_sum": "∑"
+    "&num_dllr_euro_ht 0 DLLR": {t: "$", h: "€"}
+    "&kp LS(COMMA)": "<"
+    "&kp LS(DOT)": ">"
+    "&kp LS(BSLH)": "|"
+    "&kp LS(FSLH)": "?"
+    "&kp LS(GRAVE)": "~"
+    "Sft+`": "~"
+    "&kp GRAVE": "`"
+    "&kp DQT": "\""
+    "&kp SQT": "'"
+    "&kp BSLH": "\\"
+    "&kp UNDER": "_"
+    "&kp COMMA": ","
+    "&kp KP_N0": "0"
+    "&kp KP_N1": "1"
+    "&kp KP_N2": "2"
+    "&kp KP_N3": "3"
+    "&kp KP_N4": "4"
+    "&kp KP_N5": "5"
+    "&kp KP_N6": "6"
+    "&kp KP_N7": "7"
+    "&kp KP_N8": "8"
+    "&kp KP_N9": "9"
+    "&kp KP_DOT": "KP."
+    "&kp KP_CLEAR": "KP Clr"
+    "&kp NUBS": "NUBS"
+    "&kp KP_SLASH": "/"
+    "&kp KP_EQUAL": "="
+    "&kp KP_PLUS": "+"
+    "&kp KP_MINUS": "-"
+    "&kp KP_MULTIPLY": "*"
+    "&kp MINUS": "-"
+    "&kp DOT": "."
+
+    # Symbols (assumes US-like symbols, e.g. US or Russian – Universal)
+    "&kp LBRC": "{"
+    "&kp RBRC": "}"
+    "&kp LBKT": "["
+    "&kp RBKT": "]"
+    "&kp EXCL": "!"
+    "&kp AT": "@"
+    "&kp HASH": "#"
+    "&kp DLLR": "$"
+    "&kp PRCNT": "%"
+    "&kp CARET": "^"
+    "&kp AMPS": "&"
+    "&kp LPAR": "("
+    "&kp RPAR": ")"
+    "&kp EQUAL": "="
+    "&kp FSLH": "/"
+    "&kp COLON": ":"
+
+    # Russian – Universal base helpers (letters)
+    # Show EN/RU pairs on BASE letter keys (macOS input source toggles the output).
+    "&kp Q": "Q/Й"
+    "&kp W": "W/Ц"
+    "&kp E": "E/У"
+    "&kp R": "R/К"
+    "&kp T": "T/Е"
+    "&kp Y": "Y/Н"
+    "&kp U": "U/Г"
+    "&kp I": "I/Ш"
+    "&kp O": "O/Щ"
+    "&kp P": "P/З"
+
+    "&kp G": "G/П"
+    "&kp H": "H/Р"
+
+    "&kp Z": "Z/Я"
+    "&kp X": "X/Ч"
+    "&kp C": "C/С"
+    "&kp V": "V/М"
+    "&kp B": "B/И"
+    "&kp N": "N/Т"
+
+    "&hrm_r RSHFT EQUAL": {t: "*/Ж", h: "⇧"}
+    "&ru_uni_m_hard_sign_ht KP_ENTER M": {t: "M/Ь", h: "Ъ"}
+    "&ru_uni_be": "*/Б"
+    "&ru_uni_yu": "*/Ю"
+    "&ru_uni_eh": "*/Э"
+    "&ru_uni_kha_kp": "Х"
+
+    # MAC layer hold-taps (pretty holds)
+    "&mac_lock_emoji_ht 0 0": {t: "Emoji", h: "Lock"}
+    "&mac_ss_4_ht 0 0": {t: "SS4", h: "Clip"}
+    "&mac_ss_5_ht 0 0": {t: "SS5", h: "Clip"}
+
+    # Home row mods (tap/hold)
+    "&hrm_l LSHFT A": {t: "A/Ф", h: "⇧"}
+    "&hrm_l LALT S": {t: "S/Ы", h: "⌥"}
+    "&hrm_l LCTRL D": {t: "D/В", h: "⌃"}
+    "&hrm_l LGUI F": {t: "F/А", h: "⌘"}
+    "&hrm_r RGUI J": {t: "J/О", h: "⌘"}
+    "&hrm_r RCTRL K": {t: "K/Л", h: "⌃"}
+    "&hrm_r RALT L": {t: "L/Д", h: "⌥"}
+
+    # Thumb / layer-taps (tap/hold)
+    "&space_num_lt NUM SPACE": {t: "Space", h: "NUM"}
+    "&rep_nav_lt NAV 0": {t: "Rep", h: "NAV"}
+    "&z_lang_ht 0 Z": {t: "Z/Я", h: "Lang"}
+    "&thumb_lt SYM RET": {t: "⏎", h: "SYM"}
+    "&tab_mac_lt MAC TAB": {t: "Tab", h: "MAC"}
+    "&bspc_mouse_lt MOUSE DEL": {t: "⌦", h: "Mouse"}
+    "&del_esc_ht ESC BSPC": {t: "⌫", h: "Esc"}
+
+    # Mouse layer
+    "&mkp LCLK": "LCLK"
+    "&mkp RCLK": "RCLK"
+    "&mkp MCLK": "MCLK"
+    "&mkp MB4": "MB4"
+    "&mkp MB5": "MB5"
+    "&mmv MOVE_UP": "↑"
+    "&mmv MOVE_DOWN": "↓"
+    "&mmv MOVE_LEFT": "←"
+    "&mmv MOVE_RIGHT": "→"
+    "&msc SCRL_UP": "Scr↑"
+    "&msc SCRL_DOWN": "Scr↓"
+    "&msc SCRL_LEFT": "Scr←"
+    "&msc SCRL_RIGHT": "Scr→"
+
+    # Arrow keys
+    "&kp UP": "↑"
+    "&kp DOWN": "↓"
+    "&kp LEFT": "←"
+    "&kp RIGHT": "→"

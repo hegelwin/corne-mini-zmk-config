@@ -1,0 +1,1096 @@
+/*
+ * SPDX-License-Identifier: MIT
+ */
+
+#include <behaviors.dtsi>
+#include <dt-bindings/zmk/behaviors.h>
+#include <dt-bindings/zmk/bt.h>
+#include <dt-bindings/zmk/keys.h>
+#include <dt-bindings/zmk/pointing.h>
+#include <dt-bindings/zmk/rgb.h>
+#include <dt-bindings/zmk/outputs.h>
+
+/* Layer IDs */
+#define BASE   0
+#define NAV    1
+#define SYM    2
+#define NUM    3
+#define MAC    4
+#define UTIL   5
+#define MOUSE  6
+
+/ {
+    chosen {
+        zmk,physical-layout = &three_by_five_layout;
+    };
+
+    conditional_layers {
+        compatible = "zmk,conditional-layers";
+        nav_sym_util {
+            if-layers = <NAV SYM>;
+            then-layer = <UTIL>;
+        };
+    };
+
+    /* ── Behaviors ── */
+
+    behaviors {
+        thumb_lt: thumb_lt {
+            compatible = "zmk,behavior-hold-tap";
+            #binding-cells = <2>;
+            /*
+             * Layer-tap thumb:
+             * - Tap sends the key (e.g. Enter)
+             * - Hold past tapping-term OR chord with another key to activate the layer (e.g. SYM)
+             */
+            flavor = "balanced";
+            tapping-term-ms = <220>;
+            quick-tap-ms = <120>;
+            bindings = <&mo &kp>;
+        };
+
+        ug_dn_ht: ug_dn_ht {
+            compatible = "zmk,behavior-hold-tap";
+            #binding-cells = <2>;
+            /* Tap = underglow brightness down, hold = underglow hue down (color). */
+            flavor = "tap-preferred";
+            tapping-term-ms = <300>;
+            bindings = <&ug_hud &ug_brd>;
+        };
+
+        ug_up_ht: ug_up_ht {
+            compatible = "zmk,behavior-hold-tap";
+            #binding-cells = <2>;
+            /* Tap = underglow brightness up, hold = underglow hue up (color). */
+            flavor = "tap-preferred";
+            tapping-term-ms = <300>;
+            bindings = <&ug_hui &ug_bri>;
+        };
+
+        rep_nav_lt: rep_nav_lt {
+            compatible = "zmk,behavior-hold-tap";
+            #binding-cells = <2>;
+            /*
+             * REP/NAV:
+             * Tap = repeat last key.
+             * Hold (or chord) = NAV layer.
+             */
+            flavor = "balanced";
+            tapping-term-ms = <210>;
+            quick-tap-ms = <150>;
+            bindings = <&mo &key_repeat>;
+        };
+
+        tab_mac_lt: tab_mac_lt {
+            compatible = "zmk,behavior-hold-tap";
+            #binding-cells = <2>;
+            /* Tap = TAB, hold = momentary MAC layer. */
+            flavor = "balanced";
+            tapping-term-ms = <210>;
+            quick-tap-ms = <100>;
+            bindings = <&mo &kp>;
+        };
+
+        hrm_l: hrm_l {
+            compatible = "zmk,behavior-hold-tap";
+            #binding-cells = <2>;
+            /*
+             * Home row mods (left hand):
+             * - Tap sends the letter
+             * - Hold sends the modifier
+             */
+            flavor = "balanced";
+            tapping-term-ms = <200>;
+            quick-tap-ms = <100>;
+            require-prior-idle-ms = <120>;
+            bindings = <&kp &kp>;
+            hold-trigger-on-release;
+            /*
+             * Trigger holds mainly on opposite-hand chords (+ thumbs).
+             * Key positions are BASE layer indices in this keymap.
+             */
+            hold-trigger-key-positions = <
+                5 6 7 8 9
+                15 16 17 18 19
+                25 26 27 28 29
+                30 31 32 33 34 35
+            >;
+        };
+
+        hrm_r: hrm_r {
+            compatible = "zmk,behavior-hold-tap";
+            #binding-cells = <2>;
+            /* Home row mods (right hand). */
+            flavor = "balanced";
+            tapping-term-ms = <200>;
+            quick-tap-ms = <100>;
+            require-prior-idle-ms = <120>;
+            bindings = <&kp &kp>;
+            hold-trigger-on-release;
+            hold-trigger-key-positions = <
+                0 1 2 3 4
+                10 11 12 13 14
+                20 21 22 23 24
+                30 31 32 33 34 35
+            >;
+        };
+
+        del_esc_ht: del_esc_ht {
+            compatible = "zmk,behavior-hold-tap";
+            #binding-cells = <2>;
+            /* Tap = Backspace, Hold = Esc. */
+            flavor = "tap-preferred";
+            tapping-term-ms = <200>;
+            quick-tap-ms = <150>;
+            bindings = <&kp &kp>;
+        };
+
+        space_num_lt: space_num_lt {
+            compatible = "zmk,behavior-hold-tap";
+            #binding-cells = <2>;
+            /* Tap = Space, Hold = NUM layer. */
+            flavor = "balanced";
+            tapping-term-ms = <220>;
+            quick-tap-ms = <175>;
+            require-prior-idle-ms = <120>;
+            /*
+             * Space is used constantly. Prior-idle + timing help prevent accidental NUM holds
+             * during normal typing, while keeping deliberate holds easy.
+             */
+            bindings = <&mo &kp>;
+        };
+
+        bspc_mouse_lt: bspc_mouse_lt {
+            compatible = "zmk,behavior-hold-tap";
+            #binding-cells = <2>;
+            /* Tap = Delete, Hold = MOUSE layer. */
+            flavor = "balanced";
+            tapping-term-ms = <220>;
+            quick-tap-ms = <180>;
+            require-prior-idle-ms = <120>;
+            /*
+             * Backspace is used a lot while typing. Make it hard to accidentally enter MOUSE.
+             * Pause briefly, then hold to get MOUSE.
+             */
+            bindings = <&mo &kp>;
+        };
+
+        util_boot_hold: util_boot_hold {
+            compatible = "zmk,behavior-hold-tap";
+            #binding-cells = <2>;
+            /* Hold to enter bootloader for flashing. */
+            flavor = "tap-preferred";
+            tapping-term-ms = <800>;
+            bindings = <&bootloader &none>;
+        };
+
+        util_reset_hold: util_reset_hold {
+            compatible = "zmk,behavior-hold-tap";
+            #binding-cells = <2>;
+            /* Hold to reset/reboot the keyboard. */
+            flavor = "tap-preferred";
+            tapping-term-ms = <800>;
+            bindings = <&sys_reset &none>;
+        };
+
+        util_bt_clr_hold: util_bt_clr_hold {
+            compatible = "zmk,behavior-hold-tap";
+            #binding-cells = <2>;
+            /* Hold to clear Bluetooth bonds. Tap does nothing. */
+            flavor = "tap-preferred";
+            tapping-term-ms = <800>;
+            bindings = <&bt_clr &none>;
+        };
+
+        util_usb_hold: util_usb_hold {
+            compatible = "zmk,behavior-hold-tap";
+            #binding-cells = <2>;
+            /* Hold to switch output to USB. Tap does nothing. */
+            flavor = "tap-preferred";
+            tapping-term-ms = <800>;
+            bindings = <&out_usb &none>;
+        };
+
+        util_ble_hold: util_ble_hold {
+            compatible = "zmk,behavior-hold-tap";
+            #binding-cells = <2>;
+            /* Hold to switch output to BLE. Tap does nothing. */
+            flavor = "tap-preferred";
+            tapping-term-ms = <800>;
+            bindings = <&out_ble &none>;
+        };
+
+        mac_ss_4_ht: mac_ss_4_ht {
+            compatible = "zmk,behavior-hold-tap";
+            #binding-cells = <2>;
+            /* Tap = screenshot region (⌘⇧4), hold = screenshot region to clipboard. */
+            flavor = "tap-preferred";
+            tapping-term-ms = <300>;
+            bindings = <&mac_ss_clip_4 &mac_ss_4>;
+        };
+
+        mac_ss_5_ht: mac_ss_5_ht {
+            compatible = "zmk,behavior-hold-tap";
+            #binding-cells = <2>;
+            /* Tap = screenshot/record panel (⌘⇧5), hold = to clipboard. */
+            flavor = "tap-preferred";
+            tapping-term-ms = <300>;
+            bindings = <&mac_ss_clip_5 &mac_ss_5>;
+        };
+
+        mac_lock_emoji_ht: mac_lock_emoji_ht {
+            compatible = "zmk,behavior-hold-tap";
+            #binding-cells = <2>;
+            /* Tap = emoji picker, hold = lock screen. */
+            flavor = "tap-preferred";
+            tapping-term-ms = <300>;
+            bindings = <&mac_lock &mac_emoji>;
+        };
+
+        ru_uni_m_hard_sign_ht: ru_uni_m_hard_sign_ht {
+            compatible = "zmk,behavior-hold-tap";
+            #binding-cells = <2>;
+            /* Tap = M, hold = Ъ (hard sign) via Russian Universal numpad Enter. */
+            flavor = "tap-preferred";
+            tapping-term-ms = <300>;
+            bindings = <&kp &kp>;
+        };
+
+        sym_dash_ht: sym_dash_ht {
+            compatible = "zmk,behavior-hold-tap";
+            #binding-cells = <2>;
+            /* Tap = en dash (–), hold = em dash (—) on macOS. */
+            flavor = "tap-preferred";
+            tapping-term-ms = <220>;
+            bindings = <&sym_em_dash &sym_en_dash>;
+        };
+
+        num_dllr_euro_ht: num_dllr_euro_ht {
+            compatible = "zmk,behavior-hold-tap";
+            #binding-cells = <2>;
+            /* Tap = $, hold = € on macOS. */
+            flavor = "tap-preferred";
+            tapping-term-ms = <220>;
+            bindings = <&num_euro &kp>;
+        };
+
+    };
+
+    /* ── Macros: System / BT ── */
+
+    macros {
+        bt_clr: bt_clr {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&bt BT_CLR>;
+        };
+
+        out_usb: out_usb {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&out OUT_USB>;
+        };
+
+        out_ble: out_ble {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&out OUT_BLE>;
+        };
+
+        /* ── Macros: Russian Universal layout ── */
+
+        /* Extra letters that live on non-standard HID positions in the custom layout. */
+
+        ru_uni_be: ru_uni_be {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            /* Б — mac key code 10 (NUBS) */
+            bindings = <&kp NUBS>;
+        };
+
+        ru_uni_eh: ru_uni_eh {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            /* Э — mac key code 75 (KP_SLASH) */
+            bindings = <&kp KP_SLASH>;
+        };
+
+        ru_uni_yu: ru_uni_yu {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            /* Ю — KP_MINUS */
+            bindings = <&kp KP_MINUS>;
+        };
+
+        ru_uni_kha_kp: ru_uni_kha_kp {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            /* Х — mac key code 65 (KP_DOT) */
+            bindings = <&kp KP_DOT>;
+        };
+
+        /* ── Macros: Underglow wrappers ── */
+
+        ug_brd: ug_brd {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&rgb_ug RGB_BRD>;
+        };
+
+        ug_bri: ug_bri {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&rgb_ug RGB_BRI>;
+        };
+
+        ug_hud: ug_hud {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&rgb_ug RGB_HUD>;
+        };
+
+        ug_hui: ug_hui {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&rgb_ug RGB_HUI>;
+        };
+
+        /* ── Macros: macOS shortcuts ── */
+
+        mac_spotlight: mac_spotlight {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            /* ⌘Space */
+            bindings = <&macro_press &kp LGUI>
+                     , <&macro_tap &kp SPACE>
+                     , <&macro_release &kp LGUI>;
+        };
+
+        mac_desk_1: mac_desk_1 {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&macro_press &kp LCTRL>
+                     , <&macro_tap &kp N1>
+                     , <&macro_release &kp LCTRL>;
+        };
+
+        mac_desk_2: mac_desk_2 {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&macro_press &kp LCTRL>
+                     , <&macro_tap &kp N2>
+                     , <&macro_release &kp LCTRL>;
+        };
+
+        mac_desk_3: mac_desk_3 {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&macro_press &kp LCTRL>
+                     , <&macro_tap &kp N3>
+                     , <&macro_release &kp LCTRL>;
+        };
+
+        mac_desk_4: mac_desk_4 {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&macro_press &kp LCTRL>
+                     , <&macro_tap &kp N4>
+                     , <&macro_release &kp LCTRL>;
+        };
+
+        mac_desk_5: mac_desk_5 {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&macro_press &kp LCTRL>
+                     , <&macro_tap &kp N5>
+                     , <&macro_release &kp LCTRL>;
+        };
+
+        mac_desk_6: mac_desk_6 {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&macro_press &kp LCTRL>
+                     , <&macro_tap &kp N6>
+                     , <&macro_release &kp LCTRL>;
+        };
+
+        mac_desk_7: mac_desk_7 {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&macro_press &kp LCTRL>
+                     , <&macro_tap &kp N7>
+                     , <&macro_release &kp LCTRL>;
+        };
+
+        mac_desk_8: mac_desk_8 {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&macro_press &kp LCTRL>
+                     , <&macro_tap &kp N8>
+                     , <&macro_release &kp LCTRL>;
+        };
+
+        mac_desk_9: mac_desk_9 {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&macro_press &kp LCTRL>
+                     , <&macro_tap &kp N9>
+                     , <&macro_release &kp LCTRL>;
+        };
+
+        mac_desk_10: mac_desk_10 {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&macro_press &kp LCTRL>
+                     , <&macro_tap &kp N0>
+                     , <&macro_release &kp LCTRL>;
+        };
+
+        mac_mc_dn: mac_mc_dn {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            /* Ctrl+↓ (Mission Control: Application Windows) */
+            bindings = <&macro_press &kp LCTRL>
+                     , <&macro_tap &kp DOWN>
+                     , <&macro_release &kp LCTRL>;
+        };
+
+        mac_cmd_up: mac_cmd_up {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            /* ⌘↑ (scroll to top / open parent folder) */
+            bindings = <&macro_press &kp LGUI>
+                     , <&macro_tap &kp UP>
+                     , <&macro_release &kp LGUI>;
+        };
+
+        mac_cmd_dn: mac_cmd_dn {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            /* ⌘↓ (scroll to bottom / open folder) */
+            bindings = <&macro_press &kp LGUI>
+                     , <&macro_tap &kp DOWN>
+                     , <&macro_release &kp LGUI>;
+        };
+
+        mac_zoom_in: mac_zoom_in {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            /* ⌘⇧= (Zoom in) */
+            bindings = <&macro_press &kp LGUI>
+                     , <&macro_press &kp LSHFT>
+                     , <&macro_tap &kp EQUAL>
+                     , <&macro_release &kp LSHFT>
+                     , <&macro_release &kp LGUI>;
+        };
+
+        mac_zoom_out: mac_zoom_out {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            /* ⌘- (Zoom out) */
+            bindings = <&macro_press &kp LGUI>
+                     , <&macro_tap &kp MINUS>
+                     , <&macro_release &kp LGUI>;
+        };
+
+        mac_zoom_reset: mac_zoom_reset {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            /* ⌘0 (Zoom reset) */
+            bindings = <&macro_press &kp LGUI>
+                     , <&macro_tap &kp N0>
+                     , <&macro_release &kp LGUI>;
+        };
+
+        mac_tab_prev: mac_tab_prev {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            /* ⌘⇧[ (Previous tab) */
+            bindings = <&macro_press &kp LGUI>
+                     , <&macro_press &kp LSHFT>
+                     , <&macro_tap &kp LBKT>
+                     , <&macro_release &kp LSHFT>
+                     , <&macro_release &kp LGUI>;
+        };
+
+        mac_tab_next: mac_tab_next {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            /* ⌘⇧] (Next tab) */
+            bindings = <&macro_press &kp LGUI>
+                     , <&macro_press &kp LSHFT>
+                     , <&macro_tap &kp RBKT>
+                     , <&macro_release &kp LSHFT>
+                     , <&macro_release &kp LGUI>;
+        };
+
+        mac_win_next: mac_win_next {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            /* ⌘` (Next window of same app) */
+            bindings = <&macro_press &kp LGUI>
+                     , <&macro_tap &kp GRAVE>
+                     , <&macro_release &kp LGUI>;
+        };
+
+        mac_win_prev: mac_win_prev {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            /* ⌘⇧` (Previous window of same app) */
+            bindings = <&macro_press &kp LGUI>
+                     , <&macro_press &kp LSHFT>
+                     , <&macro_tap &kp GRAVE>
+                     , <&macro_release &kp LSHFT>
+                     , <&macro_release &kp LGUI>;
+        };
+
+        mac_mc_up: mac_mc_up {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            /* Ctrl+↑ (Mission Control) */
+            bindings = <&macro_press &kp LCTRL>
+                     , <&macro_tap &kp UP>
+                     , <&macro_release &kp LCTRL>;
+        };
+
+        mac_help: mac_help {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            /* ⌘⇧/ (Help menu search) */
+            bindings = <&macro_press &kp LGUI>
+                     , <&macro_press &kp LSHFT>
+                     , <&macro_tap &kp FSLH>
+                     , <&macro_release &kp LSHFT>
+                     , <&macro_release &kp LGUI>;
+        };
+
+        mac_scr_refresh: mac_scr_refresh {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            /* Ctrl+F5 (Screen Refresh) */
+            bindings = <&macro_press &kp LCTRL>
+                     , <&macro_tap &kp F5>
+                     , <&macro_release &kp LCTRL>;
+        };
+
+        mac_cmd_shift_g: mac_cmd_shift_g {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            /* ⌘⇧G (Go to Folder in Finder) */
+            bindings = <&macro_press &kp LGUI>
+                     , <&macro_press &kp LSHFT>
+                     , <&macro_tap &kp G>
+                     , <&macro_release &kp LSHFT>
+                     , <&macro_release &kp LGUI>;
+        };
+
+        mac_paste_match: mac_paste_match {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            /* ⌘⌥⇧V (Paste and Match Style) */
+            bindings = <&macro_press &kp LGUI>
+                     , <&macro_press &kp LALT>
+                     , <&macro_press &kp LSHFT>
+                     , <&macro_tap &kp V>
+                     , <&macro_release &kp LSHFT>
+                     , <&macro_release &kp LALT>
+                     , <&macro_release &kp LGUI>;
+        };
+
+        mac_hidden_files: mac_hidden_files {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            /* ⌘⇧. (Toggle hidden files in Finder) */
+            bindings = <&macro_press &kp LGUI>
+                     , <&macro_press &kp LSHFT>
+                     , <&macro_tap &kp DOT>
+                     , <&macro_release &kp LSHFT>
+                     , <&macro_release &kp LGUI>;
+        };
+
+        mac_copy_path: mac_copy_path {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            /* ⌘⌥C (Copy as Pathname in Finder) */
+            bindings = <&macro_press &kp LGUI>
+                     , <&macro_press &kp LALT>
+                     , <&macro_tap &kp C>
+                     , <&macro_release &kp LALT>
+                     , <&macro_release &kp LGUI>;
+        };
+
+        mac_space_left: mac_space_left {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            /* Ctrl+← (Move to left Space) */
+            bindings = <&macro_press &kp LCTRL>
+                     , <&macro_tap &kp LEFT>
+                     , <&macro_release &kp LCTRL>;
+        };
+
+        mac_space_right: mac_space_right {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            /* Ctrl+→ (Move to right Space) */
+            bindings = <&macro_press &kp LCTRL>
+                     , <&macro_tap &kp RIGHT>
+                     , <&macro_release &kp LCTRL>;
+        };
+
+        mac_ctrl_f2: mac_ctrl_f2 {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            /* Ctrl+F2 (Focus menu bar) */
+            bindings = <&macro_press &kp LCTRL>
+                     , <&macro_tap &kp F2>
+                     , <&macro_release &kp LCTRL>;
+        };
+
+        mac_ctrl_f3: mac_ctrl_f3 {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            /* Ctrl+F3 (Focus Dock) */
+            bindings = <&macro_press &kp LCTRL>
+                     , <&macro_tap &kp F3>
+                     , <&macro_release &kp LCTRL>;
+        };
+
+        mac_ctrl_f4: mac_ctrl_f4 {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            /* Ctrl+F4 (Focus next window) */
+            bindings = <&macro_press &kp LCTRL>
+                     , <&macro_tap &kp F4>
+                     , <&macro_release &kp LCTRL>;
+        };
+
+        mac_ss_4: mac_ss_4 {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            /* ⌘⇧4 (Screenshot region) */
+            bindings = <&macro_press &kp LGUI>
+                     , <&macro_press &kp LSHFT>
+                     , <&macro_tap &kp N4>
+                     , <&macro_release &kp LSHFT>
+                     , <&macro_release &kp LGUI>;
+        };
+
+        mac_ss_5: mac_ss_5 {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            /* ⌘⇧5 (Screenshot/record panel) */
+            bindings = <&macro_press &kp LGUI>
+                     , <&macro_press &kp LSHFT>
+                     , <&macro_tap &kp N5>
+                     , <&macro_release &kp LSHFT>
+                     , <&macro_release &kp LGUI>;
+        };
+
+        mac_ss_clip_4: mac_ss_clip_4 {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            /* ⌃⌘⇧4 (Screenshot region to clipboard) */
+            bindings = <&macro_press &kp LCTRL>
+                     , <&macro_press &kp LGUI>
+                     , <&macro_press &kp LSHFT>
+                     , <&macro_tap &kp N4>
+                     , <&macro_release &kp LSHFT>
+                     , <&macro_release &kp LGUI>
+                     , <&macro_release &kp LCTRL>;
+        };
+
+        mac_ss_clip_5: mac_ss_clip_5 {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            /* ⌃⌘⇧5 (Screenshot/record panel to clipboard) */
+            bindings = <&macro_press &kp LCTRL>
+                     , <&macro_press &kp LGUI>
+                     , <&macro_press &kp LSHFT>
+                     , <&macro_tap &kp N5>
+                     , <&macro_release &kp LSHFT>
+                     , <&macro_release &kp LGUI>
+                     , <&macro_release &kp LCTRL>;
+        };
+
+        mac_emoji: mac_emoji {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            /* ⌃⌘Space (Emoji picker) */
+            bindings = <&macro_press &kp LCTRL>
+                     , <&macro_press &kp LGUI>
+                     , <&macro_tap &kp SPACE>
+                     , <&macro_release &kp LGUI>
+                     , <&macro_release &kp LCTRL>;
+        };
+
+        mac_lock: mac_lock {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            /* ⌃⌘Q (Lock screen) */
+            bindings = <&macro_press &kp LCTRL>
+                     , <&macro_press &kp LGUI>
+                     , <&macro_tap &kp Q>
+                     , <&macro_release &kp LGUI>
+                     , <&macro_release &kp LCTRL>;
+        };
+
+        mac_tab_1: mac_tab_1 {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&macro_press &kp LGUI>
+                     , <&macro_tap &kp N1>
+                     , <&macro_release &kp LGUI>;
+        };
+
+        mac_tab_2: mac_tab_2 {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&macro_press &kp LGUI>
+                     , <&macro_tap &kp N2>
+                     , <&macro_release &kp LGUI>;
+        };
+
+        mac_tab_3: mac_tab_3 {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&macro_press &kp LGUI>
+                     , <&macro_tap &kp N3>
+                     , <&macro_release &kp LGUI>;
+        };
+
+        mac_tab_4: mac_tab_4 {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&macro_press &kp LGUI>
+                     , <&macro_tap &kp N4>
+                     , <&macro_release &kp LGUI>;
+        };
+
+        mac_tab_5: mac_tab_5 {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&macro_press &kp LGUI>
+                     , <&macro_tap &kp N5>
+                     , <&macro_release &kp LGUI>;
+        };
+
+        mac_tab_6: mac_tab_6 {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&macro_press &kp LGUI>
+                     , <&macro_tap &kp N6>
+                     , <&macro_release &kp LGUI>;
+        };
+
+        mac_tab_7: mac_tab_7 {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&macro_press &kp LGUI>
+                     , <&macro_tap &kp N7>
+                     , <&macro_release &kp LGUI>;
+        };
+
+        mac_tab_8: mac_tab_8 {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&macro_press &kp LGUI>
+                     , <&macro_tap &kp N8>
+                     , <&macro_release &kp LGUI>;
+        };
+
+        mac_tab_9: mac_tab_9 {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&macro_press &kp LGUI>
+                     , <&macro_tap &kp N9>
+                     , <&macro_release &kp LGUI>;
+        };
+
+        mac_tab_10: mac_tab_10 {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&macro_press &kp LGUI>
+                     , <&macro_tap &kp N0>
+                     , <&macro_release &kp LGUI>;
+        };
+
+        mac_word_left: mac_word_left {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            /* ⌥← (Move word left) */
+            bindings = <&macro_press &kp LALT>
+                     , <&macro_tap &kp LEFT>
+                     , <&macro_release &kp LALT>;
+        };
+
+        mac_word_right: mac_word_right {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            /* ⌥→ (Move word right) */
+            bindings = <&macro_press &kp LALT>
+                     , <&macro_tap &kp RIGHT>
+                     , <&macro_release &kp LALT>;
+        };
+
+        mac_line_left: mac_line_left {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            /* ⌘← (Move to beginning of line) */
+            bindings = <&macro_press &kp LGUI>
+                     , <&macro_tap &kp LEFT>
+                     , <&macro_release &kp LGUI>;
+        };
+
+        mac_line_right: mac_line_right {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            /* ⌘→ (Move to end of line) */
+            bindings = <&macro_press &kp LGUI>
+                     , <&macro_tap &kp RIGHT>
+                     , <&macro_release &kp LGUI>;
+        };
+
+        /* ── Macros: Symbols (Unicode via macOS Option combos) ── */
+
+        sym_en_dash: sym_en_dash {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            /* macOS: Option + - → – */
+            bindings = <&macro_press &kp LALT>
+                     , <&macro_tap &kp MINUS>
+                     , <&macro_release &kp LALT>;
+        };
+
+        sym_em_dash: sym_em_dash {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            /* macOS: Option + Shift + - → — */
+            bindings = <&macro_press &kp LALT>
+                     , <&macro_press &kp LSHFT>
+                     , <&macro_tap &kp MINUS>
+                     , <&macro_release &kp LSHFT>
+                     , <&macro_release &kp LALT>;
+        };
+
+        num_euro: num_euro {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            /* macOS: Option + Shift + 2 → € */
+            bindings = <&macro_press &kp LALT>
+                     , <&macro_press &kp LSHFT>
+                     , <&macro_tap &kp N2>
+                     , <&macro_release &kp LSHFT>
+                     , <&macro_release &kp LALT>;
+        };
+
+        num_sum: num_sum {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            /* macOS: Option + W → ∑ */
+            bindings = <&macro_press &kp LALT>
+                     , <&macro_tap &kp W>
+                     , <&macro_release &kp LALT>;
+        };
+
+        sym_laquo: sym_laquo {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            /* macOS: Option + \ → « */
+            bindings = <&macro_press &kp LALT>
+                     , <&macro_tap &kp BSLH>
+                     , <&macro_release &kp LALT>;
+        };
+
+        sym_raquo: sym_raquo {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            /* macOS: Option + Shift + \ → » */
+            bindings = <&macro_press &kp LALT>
+                     , <&macro_press &kp LSHFT>
+                     , <&macro_tap &kp BSLH>
+                     , <&macro_release &kp LSHFT>
+                     , <&macro_release &kp LALT>;
+        };
+
+        sym_lsquo: sym_lsquo {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            /* macOS: Option + ] → ' */
+            bindings = <&macro_press &kp LALT>
+                     , <&macro_tap &kp RBKT>
+                     , <&macro_release &kp LALT>;
+        };
+
+        num_ne: num_ne {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            /* macOS: Option + = → ≠ */
+            bindings = <&macro_press &kp LALT>
+                     , <&macro_tap &kp EQUAL>
+                     , <&macro_release &kp LALT>;
+        };
+
+        num_approx: num_approx {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            /* macOS: Option + X → ≈ */
+            bindings = <&macro_press &kp LALT>
+                     , <&macro_tap &kp X>
+                     , <&macro_release &kp LALT>;
+        };
+
+        num_infty: num_infty {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            /* macOS: Option + 5 → ∞ */
+            bindings = <&macro_press &kp LALT>
+                     , <&macro_tap &kp N5>
+                     , <&macro_release &kp LALT>;
+        };
+
+        num_ring: num_ring {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            /* macOS: Option + K → ˚ */
+            bindings = <&macro_press &kp LALT>
+                     , <&macro_tap &kp K>
+                     , <&macro_release &kp LALT>;
+        };
+
+    };
+
+    /* ── Combos ── */
+
+    combos {
+        compatible = "zmk,combos";
+
+        /*
+         * Russian Universal helper combos.
+         *
+         * ZMK emits HID keycodes (US/ANSI keys), not Cyrillic directly. With macOS input
+         * source set to your custom "Russian – Universal" layout, these keycodes produce
+         * Cyrillic letters while keeping SYM/NUM symbols stable.
+         *
+         * Х: `[` (LBKT)
+         */
+        ru_uni_kha: ru_uni_kha {
+            timeout-ms = <80>;
+            /* А (F) + Щ (O) + З (P) */
+            key-positions = <13 8 9>;
+            bindings = <&ru_uni_kha_kp>;
+            layers = <BASE>;
+        };
+    };
+
+    /* ── Keymap layers ── */
+
+    keymap {
+        compatible = "zmk,keymap";
+
+        base_layer {
+            display-name = "BASE";
+            // -------------------------------------------------------------------------
+            // |  Q  |  W  |  E  |  R  |  T  |     |  Y  |  U  |  I  |  O  |  P  |
+            // |  A  |  S  |  D  |  F  |  G  |     |  H  |  J  |  K  |  L  |  =  |
+            // |  Z  |  X  |  C  |  V  |  B  |     |  N  | M/⏎ |  BE |  YU |  EH |
+            //       | ⌦/MOUSE | Space/NUM | REP/NAV |  | ⏎/SYM | TAB/MAC | ⌫/Esc |
+            bindings = <
+                &kp Q    &kp W    &kp E    &kp R    &kp T                          &kp Y    &kp U    &kp I     &kp O    &kp P
+                &hrm_l LSHFT A  &hrm_l LALT S  &hrm_l LCTRL D  &hrm_l LGUI F  &kp G                    &kp H    &hrm_r RGUI J   &hrm_r RCTRL K  &hrm_r RALT L  &hrm_r RSHFT EQUAL
+                &kp Z               &kp X    &kp C    &kp V    &kp B                 &kp N    &ru_uni_m_hard_sign_ht KP_ENTER M &ru_uni_be &ru_uni_yu &ru_uni_eh
+                         &bspc_mouse_lt MOUSE DEL   &space_num_lt NUM SPACE     &rep_nav_lt NAV 0 &thumb_lt SYM RET &tab_mac_lt MAC TAB &del_esc_ht ESC BSPC
+            >;
+        };
+
+        nav_layer {
+            display-name = "NAV";
+            // -------------------------------------------------------------------------
+            // |  ⌘↑  |  ⌥←  |  ↑   |  ⌥→  | PGUP |   | HELP  | <-TAB |  MC↑ | TAB-> |      |
+            // |  ⌘↓  |  ←   |  ↓   |  →   | PGDN |   | MENU  | <-WIN |  MC↓ | WIN-> | C-F4 |
+            // | ZM-  |  ⌘←  | ZM0  |  ⌘→  | ZM+  |   |       | <-SP  |      | SP->  |      |
+            //        | --- | --- | --- |   | --- | --- | --- |
+            bindings = <
+                &mac_cmd_up   &mac_word_left &kp UP       &mac_word_right &kp PG_UP                 &mac_help          &mac_tab_prev      &mac_mc_up        &mac_tab_next &none
+                &mac_cmd_dn   &kp LEFT      &kp DOWN     &kp RIGHT      &kp PG_DN                 &mac_ctrl_f2       &mac_win_prev      &mac_mc_dn        &mac_win_next &mac_ctrl_f4
+                &mac_zoom_out &mac_line_left &mac_zoom_reset &mac_line_right &mac_zoom_in              &none              &mac_space_left    &none            &mac_space_right &none
+                                 &trans                 &trans      &trans                        &trans              &trans      &trans
+            >;
+        };
+
+        sym_layer {
+            display-name = "SYM";
+            // -------------------------------------------------------------------------
+            // | --- | --- | --- |  _  |  ?  |   |  \  | –/— | --- | --- | --- |
+            // |  (  |  [  |  {  |  ;  |  '  |   |  "  |  :  |  }  |  ]  |  )  |
+            // | --- | --- | --- |  «  |  `  |   |  '  |  »  | --- | --- | --- |
+            //              | --- | --- | --- |   | --- | --- | --- |
+            bindings = <
+                &trans         &trans         &trans        &kp UNDER     &kp LS(FSLH)            &kp BSLH      &sym_dash_ht 0 0 &trans  &trans  &trans
+                &kp LPAR       &kp LBKT       &kp LBRC      &kp SEMI      &kp SQT                 &kp DQT      &kp COLON     &kp RBRC      &kp RBKT      &kp RPAR
+                &trans         &trans         &trans        &sym_laquo    &kp GRAVE               &sym_lsquo   &sym_raquo    &trans        &trans        &trans
+                              &trans       &trans       &trans                                   &trans       &trans       &trans
+            >;
+        };
+
+        num_layer {
+            display-name = "NUM";
+            // -------------------------------------------------------------------------
+            // |  !  |  @  |  #  |  $/€ |  %  |   |  *  |  7  |  8  |  9  |  +  |
+            // |  ∑  |  ∞  |  ≈  |  =   |  ≠  |   |  /  |  4  |  5  |  6  |  -  |
+            // |  ^  |  ˚  |  <  |  >   |  &  |   | Pipe |  1  |  2  |  3  |  ~  |
+            //              | --- | --- | --- |   |  ,  |  .  |  0  |
+            bindings = <
+                &kp EXCL      &kp AT       &kp HASH       &num_dllr_euro_ht 0 DLLR  &kp PRCNT      &kp KP_MULTIPLY &kp KP_N7   &kp KP_N8   &kp KP_N9   &kp KP_PLUS
+                &num_sum      &num_infty   &num_approx   &kp KP_EQUAL  &num_ne                   &kp FSLH        &kp KP_N4   &kp KP_N5   &kp KP_N6   &kp MINUS
+                &kp CARET     &num_ring    &kp LS(COMMA)  &kp LS(DOT)   &kp AMPS                  &kp LS(BSLH)    &kp KP_N1   &kp KP_N2   &kp KP_N3   &kp LS(GRAVE)
+                             &trans       &trans         &trans                                 &kp COMMA      &kp DOT     &kp KP_N0
+            >;
+        };
+
+        mac_layer {
+            display-name = "MAC";
+            // -------------------------------------------------------------------------
+            // | SP1 | SP2 | SP3 | SP4 | SP5 |   | SP6 | SP7 | SP8 | SP9 | SP10 |
+            // | ⌘1  | ⌘2  | ⌘3  | ⌘4  | ⌘5  |   | ⌘6  | ⌘7  | ⌘8  | ⌘9  | ⌘0   |
+            // | EMOJI/LOCK | SCRRFRSH | DOCK | SPOT | SS4/CLIP |   | SS5/CLIP | GOFLDR | HIDFILES | CPPATH | PSTMATCH |
+            //          | --- | --- | --- |   | --- | --- | --- |
+            bindings = <
+                &mac_desk_1 &mac_desk_2 &mac_desk_3 &mac_desk_4 &mac_desk_5             &mac_desk_6 &mac_desk_7 &mac_desk_8 &mac_desk_9 &mac_desk_10
+                &mac_tab_1 &mac_tab_2 &mac_tab_3 &mac_tab_4 &mac_tab_5                                     &mac_tab_6 &mac_tab_7 &mac_tab_8 &mac_tab_9 &mac_tab_10
+                &mac_lock_emoji_ht 0 0 &mac_scr_refresh  &mac_ctrl_f3  &mac_spotlight &mac_ss_4_ht 0 0                        &mac_ss_5_ht 0 0 &mac_cmd_shift_g  &mac_hidden_files &mac_copy_path &mac_paste_match
+                             &trans      &trans      &trans                             &trans      &trans      &trans
+            >;
+        };
+
+        util_layer {
+            display-name = "UTIL";
+            // -------------------------------------------------------------------------
+            // | BT0 | BT1 | BT2 | BT3 | BT4 |   | BT Clr* | F1  | F2  | F3  | F4  |
+            // | USB* | BLE* | UG- | UG+ | UG_TOG |   | BOOT* | F5  | F6  | F7  | F8  |
+            // | BR- | BR+ | V-  | V+  | MUTE |   | RESET* | F9  | F10 | F11 | F12 |
+            //              | --- | --- | --- |   | --- | --- | --- |
+            bindings = <
+                &bt BT_SEL 0    &bt BT_SEL 1    &bt BT_SEL 2    &bt BT_SEL 3    &bt BT_SEL 4        &util_bt_clr_hold 0 0 &kp F1     &kp F2     &kp F3     &kp F4
+                &util_usb_hold 0 0 &util_ble_hold 0 0 &ug_dn_ht 0 0  &ug_up_ht 0 0  &rgb_ug RGB_TOG     &util_boot_hold 0 0 &kp F5     &kp F6     &kp F7     &kp F8
+                &kp C_BRI_DN    &kp C_BRI_UP    &kp C_VOL_DN    &kp C_VOL_UP    &kp C_MUTE          &util_reset_hold 0 0 &kp F9     &kp F10    &kp F11    &kp F12
+                            &trans       &trans       &trans                         &trans      &trans        &trans
+            >;
+        };
+
+        mouse_layer {
+            display-name = "MOUSE";
+            // -------------------------------------------------------------------------
+            // |     |     |     |     |     |   | ScrU | ScrL |  Up  | ScrR |     |
+            // |     |     | MB4 | MB5 |     |   | ScrD | Left | Down | Right|     |
+            // |     |     |     |     |     |   |      |      |      |      |     |
+            //        | --- | --- | --- |   | MCLK | LCLK | RCLK |
+            bindings = <
+                &trans &trans &trans &trans &trans   &msc SCRL_UP     &msc SCRL_LEFT  &mmv MOVE_UP    &msc SCRL_RIGHT &trans
+                &trans &trans &mkp MB4 &mkp MB5 &trans   &msc SCRL_DOWN   &mmv MOVE_LEFT &mmv MOVE_DOWN  &mmv MOVE_RIGHT &trans
+                &trans &trans &trans &trans &trans   &trans          &trans         &trans          &trans          &trans
+                      &trans          &trans         &trans                    &mkp MCLK    &mkp LCLK     &mkp RCLK
+            >;
+        };
+
+    };
+};
