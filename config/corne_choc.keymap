@@ -35,6 +35,15 @@
     /* ── Behaviors ── */
 
     behaviors {
+        caps_word {
+            /* Keep Caps Word active when typing hyphens (e.g. MY-CONSTANT). */
+            continue-list = <
+                UNDERSCORE MINUS BACKSPACE DELETE
+                KP_N0 KP_N1 KP_N2 KP_N3 KP_N4
+                KP_N5 KP_N6 KP_N7 KP_N8 KP_N9
+            >;
+        };
+
         thumb_lt: thumb_lt {
             compatible = "zmk,behavior-hold-tap";
             #binding-cells = <2>;
@@ -978,6 +987,14 @@
             /* А (F) + Щ (O) + З (P) */
             key-positions = <13 8 9>;
             bindings = <&ru_uni_kha_kp>;
+            layers = <BASE>;
+        };
+
+        caps_word_combo: caps_word_combo {
+            timeout-ms = <80>;
+            /* Both shifts (LSHFT home-row A + RSHFT home-row =) → Caps Word */
+            key-positions = <10 19>;
+            bindings = <&caps_word>;
             layers = <BASE>;
         };
     };
