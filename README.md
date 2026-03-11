@@ -75,7 +75,7 @@ Note: `SYM`/`NUM` symbols assume macOS input source is English (US) **or** `Russ
 
 Combos:
 
-`А`+`Щ`+`З`=`Х`
+`Щ`+`З`=`Х`
 
 ### `NAV`
 <table style="text-align:center;">

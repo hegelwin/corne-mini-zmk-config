@@ -986,8 +986,8 @@
          */
         ru_uni_kha: ru_uni_kha {
             timeout-ms = <80>;
-            /* А (F) + Щ (O) + З (P) */
-            key-positions = <13 8 9>;
+            /* Щ (O) + З (P) */
+            key-positions = <8 9>;
             bindings = <&ru_uni_kha_kp>;
             layers = <BASE>;
         };
