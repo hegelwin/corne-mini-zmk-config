@@ -252,10 +252,12 @@ parse_config:
     "&mmv MOVE_DOWN": "↓"
     "&mmv MOVE_LEFT": "←"
     "&mmv MOVE_RIGHT": "→"
-    "&msc SCRL_UP": "Scr↑"
-    "&msc SCRL_DOWN": "Scr↓"
-    "&msc SCRL_LEFT": "Scr←"
-    "&msc SCRL_RIGHT": "Scr→"
+    # Natural scrolling is enabled on the host, so display intended directions
+    # rather than the raw HID directions used in the firmware bindings.
+    "&msc SCRL_UP": "Scr↓"
+    "&msc SCRL_DOWN": "Scr↑"
+    "&msc SCRL_LEFT": "Scr→"
+    "&msc SCRL_RIGHT": "Scr←"
 
     # Arrow keys
     "&kp UP": "↑"

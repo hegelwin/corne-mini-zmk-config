@@ -6,6 +6,8 @@
 #include <dt-bindings/zmk/behaviors.h>
 #include <dt-bindings/zmk/bt.h>
 #include <dt-bindings/zmk/keys.h>
+/* Increase keyboard-driven cursor speed; ZMK defaults to 600. */
+#define ZMK_POINTING_DEFAULT_MOVE_VAL 1500
 #include <dt-bindings/zmk/pointing.h>
 #include <dt-bindings/zmk/rgb.h>
 #include <dt-bindings/zmk/outputs.h>
@@ -1102,8 +1104,8 @@
             // |     |     |     |     |     |   |      |      |      |      |     |
             //        | --- | --- | --- |   | MCLK | LCLK | RCLK |
             bindings = <
-                &trans &trans &trans &trans &trans   &msc SCRL_UP     &msc SCRL_LEFT  &mmv MOVE_UP    &msc SCRL_RIGHT &trans
-                &trans &trans &mkp MB4 &mkp MB5 &trans   &msc SCRL_DOWN   &mmv MOVE_LEFT &mmv MOVE_DOWN  &mmv MOVE_RIGHT &trans
+                &trans &trans &trans &trans &trans   &msc SCRL_DOWN   &msc SCRL_RIGHT &mmv MOVE_UP    &msc SCRL_LEFT  &trans
+                &trans &trans &mkp MB4 &mkp MB5 &trans   &msc SCRL_UP     &mmv MOVE_LEFT &mmv MOVE_DOWN  &mmv MOVE_RIGHT &trans
                 &trans &trans &trans &trans &trans   &trans          &trans         &trans          &trans          &trans
                       &trans          &trans         &trans                    &mkp MCLK    &mkp LCLK     &mkp RCLK
             >;
