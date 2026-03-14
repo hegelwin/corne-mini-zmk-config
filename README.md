@@ -13,7 +13,7 @@ This is a macOS-focused layout with full English and Russian language support.
 - **macOS shortcuts** layer — virtual desktops, window/tab switching, screenshots, Finder actions
 - **Unicode symbols** via macOS Option combos (en/em dash, guillemets, math symbols)
 - **Russian Universal** custom keyboard layout that keeps symbol positions identical to US English
-- **Hold-for-danger** on destructive keys — bootloader, reset, BT clear require ~800ms hold
+- **Guarded utility actions** — Bluetooth bond clear and output switching require ~800ms hold
 
 ## Russian Universal layout
 
@@ -23,7 +23,7 @@ To install: copy `Russian Universal.bundle` to `~/Library/Keyboard Layouts/` and
 
 ## Layer maps
 
-In the tables below, `tap/hold` means tap action vs hold action.
+In the tables below, `tap/hold` means tap action vs hold action, and `-/hold` means hold-only.
 
 Note: `SYM`/`NUM` symbols assume macOS input source is English (US) **or** `Russian – Universal` layout from `os-keymap/` (it keeps symbols in the same places).
 
@@ -175,12 +175,12 @@ Mouse emulation is enabled (`CONFIG_ZMK_POINTING=y`). If mouse does not work ove
   </thead>
   <tbody>
     <tr><td>BT0</td><td>BT1</td><td>BT2</td><td>BT3</td><td>BT4</td><td rowspan="2">&nbsp;</td><td rowspan="2">&nbsp;</td><td>-/BT Clr*</td><td>F1</td><td>F2</td><td>F3</td><td>F4</td></tr>
-    <tr><td>-/USB*</td><td>-/BLE*</td><td>UG-/Hue-</td><td>UG+/Hue+</td><td>UG Tog</td><td>-/Boot*</td><td>F5</td><td>F6</td><td>F7</td><td>F8</td></tr>
-    <tr><td>Br-</td><td>Br+</td><td>Vol-</td><td>Vol+</td><td>Mute</td><td>&nbsp;</td><td>&nbsp;</td><td>-/Reset*</td><td>F9</td><td>F10</td><td>F11</td><td>F12</td></tr>
+    <tr><td>Hue-</td><td>Hue+</td><td>UG-</td><td>UG+</td><td>UG Tog</td><td>-/USB*</td><td>F5</td><td>F6</td><td>F7</td><td>F8</td></tr>
+    <tr><td>Br-</td><td>Br+</td><td>Vol-</td><td>Vol+</td><td>Mute</td><td>&nbsp;</td><td>&nbsp;</td><td>-/BLE*</td><td>F9</td><td>F10</td><td>F11</td><td>F12</td></tr>
   </tbody>
 </table>
 
-`*` Requires a long press (~800ms). Tap does nothing.
+`BT Clr*`, `USB*`, and `BLE*` require a long press (~800ms). Tap does nothing.
 
 ## Prerequisites
 

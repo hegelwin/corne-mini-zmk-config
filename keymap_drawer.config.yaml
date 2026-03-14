@@ -92,10 +92,6 @@ parse_config:
     "&mac_tab_10": "⌘0"
 
     # UTIL layer: show hold-only actions as a short label.
-    "&util_boot_hold": "Boot*"
-    "&util_boot_hold 0 0": "Boot*"
-    "&util_reset_hold": "Reset*"
-    "&util_reset_hold 0 0": "Reset*"
     "&util_bt_clr_hold": "BT Clr*"
     "&util_bt_clr_hold 0 0": "BT Clr*"
     "&util_usb_hold": "USB*"
@@ -114,10 +110,10 @@ parse_config:
     "&out OUT_USB": "USB"
     "&out OUT_BLE": "BLE"
 
-    "&ug_dn_ht": "UG-/Hue-"
-    "&ug_dn_ht 0 0": {t: "UG-", h: "Hue-"}
-    "&ug_up_ht": "UG+/Hue+"
-    "&ug_up_ht 0 0": {t: "UG+", h: "Hue+"}
+    "&ug_brd": "UG-"
+    "&ug_bri": "UG+"
+    "&ug_hud": "Hue-"
+    "&ug_hui": "Hue+"
     "&rgb_ug RGB_TOG": "UG Tog"
 
     "&kp C_BRI_DN": "Br-"

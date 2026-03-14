@@ -188,24 +188,6 @@
             bindings = <&mo &kp>;
         };
 
-        util_boot_hold: util_boot_hold {
-            compatible = "zmk,behavior-hold-tap";
-            #binding-cells = <2>;
-            /* Hold to enter bootloader for flashing. */
-            flavor = "tap-preferred";
-            tapping-term-ms = <800>;
-            bindings = <&bootloader &none>;
-        };
-
-        util_reset_hold: util_reset_hold {
-            compatible = "zmk,behavior-hold-tap";
-            #binding-cells = <2>;
-            /* Hold to reset/reboot the keyboard. */
-            flavor = "tap-preferred";
-            tapping-term-ms = <800>;
-            bindings = <&sys_reset &none>;
-        };
-
         util_bt_clr_hold: util_bt_clr_hold {
             compatible = "zmk,behavior-hold-tap";
             #binding-cells = <2>;
@@ -1087,13 +1069,13 @@
             display-name = "UTIL";
             // -------------------------------------------------------------------------
             // | BT0 | BT1 | BT2 | BT3 | BT4 |   | BT Clr* | F1  | F2  | F3  | F4  |
-            // | USB* | BLE* | UG- | UG+ | UG_TOG |   | BOOT* | F5  | F6  | F7  | F8  |
-            // | BR- | BR+ | V-  | V+  | MUTE |   | RESET* | F9  | F10 | F11 | F12 |
+            // | Hue- | Hue+ | UG- | UG+ | UG_TOG |   | USB* | F5  | F6  | F7  | F8  |
+            // | BR- | BR+ | V-  | V+  | MUTE |   | BLE* | F9  | F10 | F11 | F12 |
             //              | --- | --- | --- |   | --- | --- | --- |
             bindings = <
                 &bt BT_SEL 0    &bt BT_SEL 1    &bt BT_SEL 2    &bt BT_SEL 3    &bt BT_SEL 4        &util_bt_clr_hold 0 0 &kp F1     &kp F2     &kp F3     &kp F4
-                &util_usb_hold 0 0 &util_ble_hold 0 0 &ug_dn_ht 0 0  &ug_up_ht 0 0  &rgb_ug RGB_TOG     &util_boot_hold 0 0 &kp F5     &kp F6     &kp F7     &kp F8
-                &kp C_BRI_DN    &kp C_BRI_UP    &kp C_VOL_DN    &kp C_VOL_UP    &kp C_MUTE          &util_reset_hold 0 0 &kp F9     &kp F10    &kp F11    &kp F12
+                &ug_hud         &ug_hui         &ug_brd         &ug_bri         &rgb_ug RGB_TOG     &util_usb_hold 0 0 &kp F5     &kp F6     &kp F7     &kp F8
+                &kp C_BRI_DN    &kp C_BRI_UP    &kp C_VOL_DN    &kp C_VOL_UP    &kp C_MUTE          &util_ble_hold 0 0 &kp F9     &kp F10    &kp F11    &kp F12
                             &trans       &trans       &trans                         &trans      &trans        &trans
             >;
         };
