@@ -19,6 +19,8 @@ This is a macOS-focused layout with full English and Russian language support.
 
 The `os-keymap/` directory contains a custom macOS keyboard layout (`Russian Universal.bundle`). It maps Cyrillic letters to the standard ЙЦУКЕН positions while keeping punctuation and symbol keys identical to the US layout. This means the SYM and NUM layers produce the same characters regardless of whether English or Russian input is active.
 
+The firmware also includes a local extended Caps Word behavior so the Russian helper letters on non-standard HID keys (`Б/Ю/Э/Ъ/Х`) uppercase correctly without leaving Caps Word.
+
 To install: copy `Russian Universal.bundle` to `~/Library/Keyboard Layouts/` and add it in System Settings > Keyboard > Input Sources.
 
 ## Layer maps

@@ -1,0 +1,18 @@
+# Copyright (c) 2026
+# SPDX-License-Identifier: MIT
+
+description: Extended Caps Word behavior
+
+compatible: "zmk,behavior-extended-caps-word"
+
+include: zero_param.yaml
+
+properties:
+  continue-list:
+    type: array
+    required: true
+  word-list:
+    type: array
+    required: true
+  mods:
+    type: int

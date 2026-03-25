@@ -39,12 +39,20 @@
     /* ── Behaviors ── */
 
     behaviors {
-        caps_word {
-            /* Keep Caps Word active when typing hyphens (e.g. MY-CONSTANT). */
+        ru_caps_word: ru_caps_word {
+            compatible = "zmk,behavior-extended-caps-word";
+            #binding-cells = <0>;
+            /*
+             * Keep Caps Word active for the Russian helper letters that live on
+             * non-alpha HID keys and apply Shift to them like normal A-Z keys.
+             */
             continue-list = <
                 UNDERSCORE MINUS BACKSPACE DELETE
                 KP_N0 KP_N1 KP_N2 KP_N3 KP_N4
                 KP_N5 KP_N6 KP_N7 KP_N8 KP_N9
+            >;
+            word-list = <
+                NUBS KP_MINUS KP_SLASH KP_ENTER KP_DOT
             >;
         };
 
@@ -980,7 +988,7 @@
             timeout-ms = <80>;
             /* Both shifts (LSHFT home-row A + RSHFT home-row =) → Caps Word */
             key-positions = <10 19>;
-            bindings = <&caps_word>;
+            bindings = <&ru_caps_word>;
             layers = <BASE>;
         };
     };

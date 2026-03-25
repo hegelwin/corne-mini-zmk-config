@@ -1,0 +1,2 @@
+# Local module sources in this repo do not currently expose user-tunable Kconfig
+# options. This file exists so the repo can act as a proper Zephyr/ZMK module.

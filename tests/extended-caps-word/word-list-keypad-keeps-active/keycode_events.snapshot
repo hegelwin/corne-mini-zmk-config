@@ -1,0 +1,28 @@
+word_list: Comparing with 0x07 - 0x64 (with implicit mods: 0x00)
+word_list: Comparing with 0x07 - 0x56 (with implicit mods: 0x00)
+word_list: Comparing with 0x07 - 0x54 (with implicit mods: 0x00)
+word_list: Comparing with 0x07 - 0x58 (with implicit mods: 0x00)
+word_list: Comparing with 0x07 - 0x63 (with implicit mods: 0x00)
+enhance_usage: Enhancing usage 0x04 with modifiers: 0x02
+pressed: usage_page 0x07 keycode 0x04 implicit_mods 0x02 explicit_mods 0x00
+press: Modifiers set to 0x02
+released: usage_page 0x07 keycode 0x04 implicit_mods 0x00 explicit_mods 0x00
+release: Modifiers set to 0x00
+word_list: Comparing with 0x07 - 0x64 (with implicit mods: 0x00)
+word_list: Comparing with 0x07 - 0x56 (with implicit mods: 0x00)
+word_list: Found matching usage: 0x07 - 0x56
+enhance_usage: Enhancing usage 0x56 with modifiers: 0x02
+pressed: usage_page 0x07 keycode 0x56 implicit_mods 0x02 explicit_mods 0x00
+press: Modifiers set to 0x02
+released: usage_page 0x07 keycode 0x56 implicit_mods 0x00 explicit_mods 0x00
+release: Modifiers set to 0x00
+word_list: Comparing with 0x07 - 0x64 (with implicit mods: 0x00)
+word_list: Comparing with 0x07 - 0x56 (with implicit mods: 0x00)
+word_list: Comparing with 0x07 - 0x54 (with implicit mods: 0x00)
+word_list: Comparing with 0x07 - 0x58 (with implicit mods: 0x00)
+word_list: Comparing with 0x07 - 0x63 (with implicit mods: 0x00)
+enhance_usage: Enhancing usage 0x05 with modifiers: 0x02
+pressed: usage_page 0x07 keycode 0x05 implicit_mods 0x02 explicit_mods 0x00
+press: Modifiers set to 0x02
+released: usage_page 0x07 keycode 0x05 implicit_mods 0x00 explicit_mods 0x00
+release: Modifiers set to 0x00
