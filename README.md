@@ -159,8 +159,8 @@ Combos:
       <td colspan="2" style="white-space:nowrap;"><code>&nbsp;</code></td>
       <td colspan="2" style="white-space:nowrap;"><code>&nbsp;</code></td>
       <td colspan="2" style="white-space:nowrap;"><code>&nbsp;</code></td>
-      <td colspan="2" style="white-space:nowrap;"><code>MCLK</code></td>
       <td colspan="2" style="white-space:nowrap;"><code>LCLK</code></td>
+      <td colspan="2" style="white-space:nowrap;"><code>MCLK</code></td>
       <td colspan="2" style="white-space:nowrap;"><code>RCLK</code></td>
     </tr>
   </tbody>

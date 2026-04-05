@@ -1094,12 +1094,12 @@
             // |     |     |     |     |     |   | ScrU | ScrL |  Up  | ScrR |     |
             // |     |     | MB4 | MB5 |     |   | ScrD | Left | Down | Right|     |
             // |     |     |     |     |     |   |      |      |      |      |     |
-            //        | --- | --- | --- |   | MCLK | LCLK | RCLK |
+            //        | --- | --- | --- |   | LCLK | MCLK | RCLK |
             bindings = <
                 &trans &trans &trans &trans &trans   &msc SCRL_DOWN   &msc SCRL_RIGHT &mmv MOVE_UP    &msc SCRL_LEFT  &trans
                 &trans &trans &mkp MB4 &mkp MB5 &trans   &msc SCRL_UP     &mmv MOVE_LEFT &mmv MOVE_DOWN  &mmv MOVE_RIGHT &trans
                 &trans &trans &trans &trans &trans   &trans          &trans         &trans          &trans          &trans
-                      &trans          &trans         &trans                    &mkp MCLK    &mkp LCLK     &mkp RCLK
+                     &trans          &trans         &trans                    &mkp LCLK    &mkp MCLK     &mkp RCLK
             >;
         };
 
