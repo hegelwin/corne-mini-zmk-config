@@ -36,6 +36,10 @@ parse_config:
     "&mac_space_left": "Sp←"
     "&mac_space_right": "Sp→"
 
+    "&mac_tile_left": "TL←"
+    "&mac_tile_right": "TR→"
+    "&td_tile_fill": {t: "TileFill", h: "TR→×2"}
+
     "&mac_mc_up": "MC↑"
     "&mac_mc_dn": "MC↓"
 

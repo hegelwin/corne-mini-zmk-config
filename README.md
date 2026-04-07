@@ -11,6 +11,7 @@ This is a macOS-focused layout with full English and Russian language support.
 - **Mouse emulation** layer with pointer movement, scrolling, and click buttons
 - **Conditional layers** — holding NAV + SYM together activates the UTIL layer
 - **macOS shortcuts** layer — virtual desktops, window/tab switching, screenshots, Finder actions
+- **macOS window tiling** (Sequoia) — tile left/right, fill, and arrange on the NAV layer
 - **Unicode symbols** via macOS Option combos (en/em dash, guillemets, math symbols)
 - **Russian Universal** custom keyboard layout that keeps symbol positions identical to US English
 - **Guarded utility actions** — Bluetooth bond clear and output switching require ~800ms hold
@@ -89,9 +90,15 @@ Combos:
   <tbody>
     <tr><td>⌘↑</td><td>⌥←</td><td>↑</td><td>⌥→</td><td>PgUp</td><td rowspan="2">&nbsp;</td><td rowspan="2">&nbsp;</td><td>Help</td><td>Tab←</td><td>MC↑</td><td>Tab→</td><td>&nbsp;</td></tr>
     <tr><td>⌘↓</td><td>←</td><td>↓</td><td>→</td><td>PgDn</td><td>Menu</td><td>Win←</td><td>MC↓</td><td>Win→</td><td>WinFcs</td></tr>
-    <tr><td>Zm-</td><td>⌘←</td><td>Zm0</td><td>⌘→</td><td>Zm+</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>Sp←</td><td>&nbsp;</td><td>Sp→</td><td>&nbsp;</td></tr>
+    <tr><td>Zm-</td><td>⌘←</td><td>Zm0</td><td>⌘→</td><td>Zm+</td><td>&nbsp;</td><td>&nbsp;</td><td>TL←</td><td>Sp←</td><td>TileFill*</td><td>Sp→</td><td>TR→</td></tr>
   </tbody>
 </table>
+
+**TL←** / **TileFill** / **TR→** are macOS Sequoia window tiling shortcuts. **TileFill\*** is a tap-dance: single tap fills the desktop (Globe+Ctrl+F), double-tap sends Globe+Ctrl+R twice for arrange-right.
+
+**TL←** and **TR→** send Ctrl+Option+Arrow instead of Globe+Ctrl+Arrow. ZMK sends Globe as a consumer HID usage in a separate report from keyboard keys; macOS intercepts Ctrl+Arrow as "switch space" before considering Globe. To make these work, add custom App Shortcuts in **System Settings > Keyboard > Keyboard Shortcuts > App Shortcuts** (All Applications):
+- Menu title `Left` → Ctrl+Option+Left
+- Menu title `Right` → Ctrl+Option+Right
 
 ### `SYM`
 <table style="text-align:center;">

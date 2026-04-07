@@ -277,6 +277,14 @@
             bindings = <&num_euro &kp>;
         };
 
+        td_tile_fill: td_tile_fill {
+            compatible = "zmk,behavior-tap-dance";
+            #binding-cells = <0>;
+            /* Tap = fill window, double-tap = Globe+Ctrl+R ×2 */
+            tapping-term-ms = <200>;
+            bindings = <&mac_tile_fill>, <&mac_tile_right_dbl>;
+        };
+
     };
 
     /* ── Macros: System / BT ── */
@@ -960,6 +968,65 @@
                      , <&macro_release &kp LALT>;
         };
 
+        mac_tile_left: mac_tile_left {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            /*
+             * Ctrl+Option+Left (Tile window left half)
+             * Requires macOS App Shortcut: "Left" → Ctrl+Option+Left
+             * (System Settings > Keyboard > Keyboard Shortcuts > App Shortcuts)
+             * Globe+Ctrl+Left does not work from ZMK because macOS intercepts
+             * Ctrl+Left as "switch space" before considering Globe from the
+             * separate consumer HID report.
+             */
+            bindings = <&macro_press &kp LCTRL &kp LALT>
+                     , <&macro_tap &kp LEFT>
+                     , <&macro_release &kp LALT &kp LCTRL>;
+        };
+
+        mac_tile_fill: mac_tile_fill {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            /* Globe+Ctrl+F (Fill window) */
+            bindings = <&macro_press &kp GLOBE>
+                     , <&macro_wait_time 30>
+                     , <&macro_press &kp LCTRL>
+                     , <&macro_tap &kp F>
+                     , <&macro_release &kp LCTRL>
+                     , <&macro_release &kp GLOBE>;
+        };
+
+        mac_tile_right: mac_tile_right {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            /*
+             * Ctrl+Option+Right (Tile window right half)
+             * Requires macOS App Shortcut: "Right" → Ctrl+Option+Right
+             */
+            bindings = <&macro_press &kp LCTRL &kp LALT>
+                     , <&macro_tap &kp RIGHT>
+                     , <&macro_release &kp LALT &kp LCTRL>;
+        };
+
+        mac_tile_right_dbl: mac_tile_right_dbl {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            /* Globe+Ctrl+R double-tap (Arrange right) */
+            bindings = <&macro_press &kp GLOBE>
+                     , <&macro_wait_time 30>
+                     , <&macro_press &kp LCTRL>
+                     , <&macro_tap &kp R>
+                     , <&macro_release &kp LCTRL>
+                     , <&macro_release &kp GLOBE>
+                     , <&macro_wait_time 50>
+                     , <&macro_press &kp GLOBE>
+                     , <&macro_wait_time 30>
+                     , <&macro_press &kp LCTRL>
+                     , <&macro_tap &kp R>
+                     , <&macro_release &kp LCTRL>
+                     , <&macro_release &kp GLOBE>;
+        };
+
     };
 
     /* ── Combos ── */
@@ -1018,12 +1085,12 @@
             // -------------------------------------------------------------------------
             // |  ⌘↑  |  ⌥←  |  ↑   |  ⌥→  | PGUP |   | HELP  | <-TAB |  MC↑ | TAB-> |      |
             // |  ⌘↓  |  ←   |  ↓   |  →   | PGDN |   | MENU  | <-WIN |  MC↓ | WIN-> | C-F4 |
-            // | ZM-  |  ⌘←  | ZM0  |  ⌘→  | ZM+  |   |       | <-SP  |      | SP->  |      |
+            // | ZM-  |  ⌘←  | ZM0  |  ⌘→  | ZM+  |   | TL←  | <-SP  | TileFill* | SP->  | TR→  |
             //        | --- | --- | --- |   | --- | --- | --- |
             bindings = <
                 &mac_cmd_up   &mac_word_left &kp UP       &mac_word_right &kp PG_UP                 &mac_help          &mac_tab_prev      &mac_mc_up        &mac_tab_next &none
                 &mac_cmd_dn   &kp LEFT      &kp DOWN     &kp RIGHT      &kp PG_DN                 &mac_ctrl_f2       &mac_win_prev      &mac_mc_dn        &mac_win_next &mac_ctrl_f4
-                &mac_zoom_out &mac_line_left &mac_zoom_reset &mac_line_right &mac_zoom_in              &none              &mac_space_left    &none            &mac_space_right &none
+                &mac_zoom_out &mac_line_left &mac_zoom_reset &mac_line_right &mac_zoom_in              &mac_tile_left     &mac_space_left    &td_tile_fill    &mac_space_right &mac_tile_right
                                  &trans                 &trans      &trans                        &trans              &trans      &trans
             >;
         };
