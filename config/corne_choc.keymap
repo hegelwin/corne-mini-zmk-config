@@ -64,7 +64,7 @@
              * - Tap sends the key (e.g. Enter)
              * - Hold past tapping-term OR chord with another key to activate the layer (e.g. SYM)
              */
-            flavor = "balanced";
+            flavor = "hold-preferred";
             tapping-term-ms = <220>;
             quick-tap-ms = <120>;
             bindings = <&mo &kp>;
