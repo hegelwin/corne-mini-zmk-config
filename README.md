@@ -94,11 +94,11 @@ Combos:
   </tbody>
 </table>
 
-**TL←** / **TileFill** / **TR→** are macOS Sequoia window tiling shortcuts. **TileFill\*** is a tap-dance: single tap fills the desktop (Globe+Ctrl+F), double-tap sends Globe+Ctrl+R twice for arrange-right.
+**TL←** / **TileFill** / **TR→** are macOS Sequoia window tiling shortcuts. **TileFill\*** is a tap-dance: single tap fills the window, double-tap sends the arrange-right shortcut twice to cycle arrangement.
 
-**TL←** and **TR→** send Ctrl+Option+Arrow instead of Globe+Ctrl+Arrow. ZMK sends Globe as a consumer HID usage in a separate report from keyboard keys; macOS intercepts Ctrl+Arrow as "switch space" before considering Globe. To make these work, add custom App Shortcuts in **System Settings > Keyboard > Keyboard Shortcuts > App Shortcuts** (All Applications):
-- Menu title `Left` → Ctrl+Option+Left
-- Menu title `Right` → Ctrl+Option+Right
+These macros send **Ctrl+Option+Cmd+key** instead of the default Globe+Ctrl+key. ZMK's Globe is a consumer HID usage in a separate USB report that macOS cannot reliably combine with keyboard modifiers ([zmk#947](https://github.com/zmkfirmware/zmk/issues/947)), and Ctrl+Option+Arrow alone conflicts with Option+Arrow word navigation in text fields.
+
+Add matching App Shortcuts in **System Settings > Keyboard > Keyboard Shortcuts > App Shortcuts** (All Applications): `Left` → ⌃⌥⌘←, `Right` → ⌃⌥⌘→, `Fill` → ⌃⌥⌘F, `Return to Previous Size` → ⌃⌥⌘R.
 
 ### `SYM`
 <table style="text-align:center;">
@@ -149,6 +149,8 @@ Combos:
     <tr><td>Emoji/Lock</td><td>ScrRfrsh</td><td>Dock</td><td>Spot</td><td>SS4/Clip</td><td>&nbsp;</td><td>&nbsp;</td><td>SS5/Clip</td><td>GoFolder</td><td>HidFiles</td><td>CpPath</td><td>PstMatch</td></tr>
   </tbody>
 </table>
+
+**Sp1–Sp10** send Ctrl+1 through Ctrl+0 to jump directly to a specific Space. These shortcuts are disabled by default in macOS. Enable them in **System Settings > Keyboard > Keyboard Shortcuts > Mission Control** — check "Switch to Desktop N" for each Space you use.
 
 ### `MOUSE`
 

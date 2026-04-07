@@ -972,59 +972,79 @@
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
             /*
-             * Ctrl+Option+Left (Tile window left half)
-             * Requires macOS App Shortcut: "Left" → Ctrl+Option+Left
+             * Ctrl+Option+Cmd+Left (Tile window left half)
+             * Requires macOS App Shortcut (All Applications):
+             *   Menu title "Left" → Ctrl+Option+Cmd+Left
              * (System Settings > Keyboard > Keyboard Shortcuts > App Shortcuts)
-             * Globe+Ctrl+Left does not work from ZMK because macOS intercepts
-             * Ctrl+Left as "switch space" before considering Globe from the
-             * separate consumer HID report.
+             *
+             * Why not the default Globe+Ctrl+Left?
+             * ZMK sends Globe as a consumer HID usage (0x029D) in a separate
+             * USB report from keyboard keys. macOS processes the keyboard
+             * report first, so Ctrl+Arrow triggers text navigation or space
+             * switching before Globe is considered (ZMK issue #947).
+             *
+             * Why not Ctrl+Option+Arrow (without Cmd)?
+             * Option+Arrow is "move cursor one word" in macOS text fields.
+             * Apps intercept the Option+Arrow portion before the App Shortcut
+             * system sees the full combo, so tiling fails in any focused
+             * text field.
+             *
+             * Ctrl+Option+Cmd+Arrow has no standard text-editing meaning,
+             * so App Shortcuts always take priority.
              */
-            bindings = <&macro_press &kp LCTRL &kp LALT>
+            bindings = <&macro_press &kp LCTRL &kp LALT &kp LCMD>
                      , <&macro_tap &kp LEFT>
-                     , <&macro_release &kp LALT &kp LCTRL>;
+                     , <&macro_release &kp LCMD &kp LALT &kp LCTRL>;
         };
 
         mac_tile_fill: mac_tile_fill {
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
-            /* Globe+Ctrl+F (Fill window) */
-            bindings = <&macro_press &kp GLOBE>
-                     , <&macro_wait_time 30>
-                     , <&macro_press &kp LCTRL>
+            /*
+             * Ctrl+Option+Cmd+F (Fill window)
+             * Requires macOS App Shortcut (All Applications):
+             *   Menu title "Fill" → Ctrl+Option+Cmd+F
+             * See mac_tile_left comment for why Globe-based shortcuts
+             * are avoided.
+             */
+            bindings = <&macro_press &kp LCTRL &kp LALT &kp LCMD>
                      , <&macro_tap &kp F>
-                     , <&macro_release &kp LCTRL>
-                     , <&macro_release &kp GLOBE>;
+                     , <&macro_release &kp LCMD &kp LALT &kp LCTRL>;
         };
 
         mac_tile_right: mac_tile_right {
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
             /*
-             * Ctrl+Option+Right (Tile window right half)
-             * Requires macOS App Shortcut: "Right" → Ctrl+Option+Right
+             * Ctrl+Option+Cmd+Right (Tile window right half)
+             * Requires macOS App Shortcut (All Applications):
+             *   Menu title "Right" → Ctrl+Option+Cmd+Right
+             * See mac_tile_left comment for why Globe-based shortcuts
+             * are avoided.
              */
-            bindings = <&macro_press &kp LCTRL &kp LALT>
+            bindings = <&macro_press &kp LCTRL &kp LALT &kp LCMD>
                      , <&macro_tap &kp RIGHT>
-                     , <&macro_release &kp LALT &kp LCTRL>;
+                     , <&macro_release &kp LCMD &kp LALT &kp LCTRL>;
         };
 
         mac_tile_right_dbl: mac_tile_right_dbl {
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
-            /* Globe+Ctrl+R double-tap (Arrange right) */
-            bindings = <&macro_press &kp GLOBE>
-                     , <&macro_wait_time 30>
-                     , <&macro_press &kp LCTRL>
+            /*
+             * Ctrl+Option+Cmd+R sent twice (Arrange right)
+             * Requires macOS App Shortcut (All Applications):
+             *   Menu title "Return to Previous Size" → Ctrl+Option+Cmd+R
+             * Sent twice to cycle through arrangement positions.
+             * See mac_tile_left comment for why Globe-based shortcuts
+             * are avoided.
+             */
+            bindings = <&macro_press &kp LCTRL &kp LALT &kp LCMD>
                      , <&macro_tap &kp R>
-                     , <&macro_release &kp LCTRL>
-                     , <&macro_release &kp GLOBE>
+                     , <&macro_release &kp LCMD &kp LALT &kp LCTRL>
                      , <&macro_wait_time 50>
-                     , <&macro_press &kp GLOBE>
-                     , <&macro_wait_time 30>
-                     , <&macro_press &kp LCTRL>
+                     , <&macro_press &kp LCTRL &kp LALT &kp LCMD>
                      , <&macro_tap &kp R>
-                     , <&macro_release &kp LCTRL>
-                     , <&macro_release &kp GLOBE>;
+                     , <&macro_release &kp LCMD &kp LALT &kp LCTRL>;
         };
 
     };
