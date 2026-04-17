@@ -213,7 +213,7 @@ parse_config:
     "&kp N": "N/Т"
 
     "&hrm_r RSHFT EQUAL": {t: "*/Ж", h: "⇧"}
-    "&ru_uni_m_hard_sign_ht KP_ENTER M": {t: "M/Ь", h: "Ъ"}
+    "&ru_uni_m_hard_sign_ht KP_PLUS M": {t: "M/Ь", h: "Ъ"}
     "&ru_uni_be": "*/Б"
     "&ru_uni_yu": "*/Ю"
     "&ru_uni_eh": "*/Э"
