@@ -162,8 +162,8 @@ Add matching App Shortcuts in **System Settings > Keyboard > Keyboard Shortcuts 
   </thead>
   <tbody>
     <tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td rowspan="2">&nbsp;</td><td rowspan="2">&nbsp;</td><td>Scr↑</td><td>Scr←</td><td>↑</td><td>Scr→</td><td>&nbsp;</td></tr>
-    <tr><td>&nbsp;</td><td>&nbsp;</td><td>MB4</td><td>MB5</td><td>&nbsp;</td><td>Scr↓</td><td>←</td><td>↓</td><td>→</td><td>&nbsp;</td></tr>
-    <tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+    <tr><td>A</td><td>S</td><td>D</td><td>F</td><td>&nbsp;</td><td>Scr↓</td><td>←</td><td>↓</td><td>→</td><td>&nbsp;</td></tr>
+    <tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>MB4</td><td>MB5</td></tr>
     <tr>
       <td colspan="2" style="white-space:nowrap;"><code>&nbsp;</code></td>
       <td colspan="2" style="white-space:nowrap;"><code>&nbsp;</code></td>
@@ -174,6 +174,8 @@ Add matching App Shortcuts in **System Settings > Keyboard > Keyboard Shortcuts 
     </tr>
   </tbody>
 </table>
+
+Hold `⌦/MOUSE` to activate this momentary layer. The left home-row modifier keys (`A`, `S`, `D`, `F`) are explicit plain key presses, so they bypass the base layer's modifiers for games. `W` and `G` remain transparent because they are already plain keys on `BASE`; other transparent keys also fall through to the base layer.
 
 Mouse emulation is enabled (`CONFIG_ZMK_POINTING=y`). If mouse does not work over BLE, you may need to refresh the HID descriptor (re-pair).
 
