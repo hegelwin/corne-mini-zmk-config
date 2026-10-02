@@ -23,7 +23,7 @@ The `os-keymap/` directory contains a custom macOS keyboard layout (`Russian Uni
 
 The firmware also includes a local extended Caps Word behavior so the Russian helper letters on non-standard HID keys (`Б/Ю/Э/Ъ/Х`) uppercase correctly without leaving Caps Word.
 
-To install: copy `Russian Universal.bundle` to `~/Library/Keyboard Layouts/` and add it in System Settings > Keyboard > Input Sources.
+To install for all users: copy `Russian Universal.bundle` to `/Library/Keyboard Layouts/` (requires administrator permission), then add it in System Settings > Keyboard > Input Sources.
 
 The NUM `+` key sends keypad plus. In this layout, keypad plus produces `+`, Option + keypad plus produces `ъ`, and Option + Shift + keypad plus produces `Ъ`. Holding the BASE `M/Ь` key sends Option + keypad plus; Caps Word adds Shift for `Ъ`. After updating this mapping, install the updated layout bundle and flash the matching firmware together. Test `+`, `ъ`, and `Ъ` in your usual apps, since apps can intercept key combinations before text input.
 
@@ -188,12 +188,26 @@ Press **Q + P within 50 ms of each other**, then keep both held for **one second
 
 Releasing either key before the hold completes cancels the switch. Other key presses do not shorten the hold. The combo works only on BASE and GAME. A recognized Q + P chord consumes both keys, even when released early; individual Q and P presses still work. Q can wait up to 50 ms for combo detection. P can wait up to 80 ms on BASE because it also belongs to the existing O + P Russian helper combo, or 50 ms on GAME. The hold is measured from the first key press, as in ZMK v0.3's combo implementation.
 
-| Row | Left hand | Right hand |
-| --- | --- | --- |
-| Top | Q W E R T | Y U I O P |
-| Home | A S D F G | H J K L = |
-| Bottom | Z X C V B | N M , . / |
-| Thumbs | Ctrl · Space · Shift | Enter · Tab · Esc |
+<table style="text-align:center;">
+  <thead>
+    <tr>
+      <th>L1</th><th>L2</th><th>L3</th><th>L4</th><th>L5</th><th>&nbsp;</th><th>&nbsp;</th><th>R1</th><th>R2</th><th>R3</th><th>R4</th><th>R5</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td>Q</td><td>W</td><td>E</td><td>R</td><td>T</td><td rowspan="2">&nbsp;</td><td rowspan="2">&nbsp;</td><td>Y</td><td>U</td><td>I</td><td>O</td><td>P</td></tr>
+    <tr><td>A</td><td>S</td><td>D</td><td>F</td><td>G</td><td>H</td><td>J</td><td>K</td><td>L</td><td>=</td></tr>
+    <tr><td>Z</td><td>X</td><td>C</td><td>V</td><td>B</td><td>&nbsp;</td><td>&nbsp;</td><td>N</td><td>M</td><td>,</td><td>.</td><td>/</td></tr>
+    <tr>
+      <td colspan="2" style="white-space:nowrap;"><code>Ctrl</code></td>
+      <td colspan="2" style="white-space:nowrap;"><code>Space</code></td>
+      <td colspan="2" style="white-space:nowrap;"><code>Shift</code></td>
+      <td colspan="2" style="white-space:nowrap;"><code>Enter</code></td>
+      <td colspan="2" style="white-space:nowrap;"><code>Tab</code></td>
+      <td colspan="2" style="white-space:nowrap;"><code>Esc</code></td>
+    </tr>
+  </tbody>
+</table>
 
 All GAME bindings are plain key presses. Holding A/S/D/F sends letters; holding Space keeps Space pressed. Entering GAME clears active Caps Word so it cannot add Shift to movement keys; returning to BASE leaves Caps Word off until activated again. Typing combos and thumb layer-taps are inactive. The Russian helper punctuation positions become ordinary comma, period, and slash keys in GAME. Return to BASE for the normal typing layers and Russian helpers. Select an English input source when the game expects US QWERTY controls.
 
