@@ -16,3 +16,6 @@ properties:
     required: true
   mods:
     type: int
+  deactivate-on-layer:
+    type: int
+    description: Layer whose activation clears Caps Word; omitted to preserve it across layers.

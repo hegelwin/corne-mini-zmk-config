@@ -21,6 +21,7 @@ parse_config:
     "&none": ""
     "&lang_toggle": "Lang"
     "&key_repeat": "Rep"
+    "&game_switch_hold GAME 0": {t: "", h: "Game 1s"}
 
     "&mac_cmd_up": "⌘↑"
     "&mac_cmd_dn": "⌘↓"

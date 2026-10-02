@@ -16,6 +16,7 @@
 #include <zmk/endpoints.h>
 #include <zmk/event_manager.h>
 #include <zmk/events/keycode_state_changed.h>
+#include <zmk/events/layer_state_changed.h>
 #include <zmk/events/modifiers_state_changed.h>
 #include <zmk/events/position_state_changed.h>
 #include <zmk/hid.h>
@@ -39,6 +40,7 @@ struct extended_caps_word_item {
 
 struct behavior_extended_caps_word_config {
     zmk_mod_flags_t mods;
+    int deactivate_on_layer;
     const struct extended_caps_word_item *continuations;
     uint8_t continuations_count;
     const struct extended_caps_word_item *word_list;
@@ -88,10 +90,11 @@ static const struct behavior_driver_api behavior_extended_caps_word_driver_api =
 #endif
 };
 
-static int extended_caps_word_keycode_state_changed_listener(const zmk_event_t *eh);
+static int extended_caps_word_listener(const zmk_event_t *eh);
 
-ZMK_LISTENER(behavior_extended_caps_word, extended_caps_word_keycode_state_changed_listener);
+ZMK_LISTENER(behavior_extended_caps_word, extended_caps_word_listener);
 ZMK_SUBSCRIPTION(behavior_extended_caps_word, zmk_keycode_state_changed);
+ZMK_SUBSCRIPTION(behavior_extended_caps_word, zmk_layer_state_changed);
 
 #define GET_DEV(inst) DEVICE_DT_INST_GET(inst),
 static const struct device *devs[] = {DT_INST_FOREACH_STATUS_OKAY(GET_DEV)};
@@ -152,7 +155,21 @@ static void extended_caps_word_enhance_usage(const struct behavior_extended_caps
     ev->implicit_modifiers |= config->mods;
 }
 
-static int extended_caps_word_keycode_state_changed_listener(const zmk_event_t *eh) {
+static int extended_caps_word_listener(const zmk_event_t *eh) {
+    const struct zmk_layer_state_changed *layer_ev = as_zmk_layer_state_changed(eh);
+    if (layer_ev != NULL) {
+        if (layer_ev->state) {
+            for (int i = 0; i < ARRAY_SIZE(devs); i++) {
+                const struct device *dev = devs[i];
+                const struct behavior_extended_caps_word_config *config = dev->config;
+                if (config->deactivate_on_layer == layer_ev->layer) {
+                    deactivate_extended_caps_word(dev);
+                }
+            }
+        }
+        return ZMK_EV_EVENT_BUBBLE;
+    }
+
     struct zmk_keycode_state_changed *ev = as_zmk_keycode_state_changed(eh);
     if (ev == NULL || !ev->state) {
         return ZMK_EV_EVENT_BUBBLE;
@@ -205,6 +222,7 @@ static int extended_caps_word_keycode_state_changed_listener(const zmk_event_t *
     };                                                                                             \
     static const struct behavior_extended_caps_word_config behavior_extended_caps_word_config_##n = { \
         .mods = DT_INST_PROP_OR(n, mods, MOD_LSFT),                                                \
+        .deactivate_on_layer = DT_INST_PROP_OR(n, deactivate_on_layer, -1),                       \
         .continuations = behavior_extended_caps_word_continuations_##n,                            \
         .continuations_count = ARRAY_SIZE(behavior_extended_caps_word_continuations_##n),          \
         .word_list = behavior_extended_caps_word_word_list_##n,                                    \

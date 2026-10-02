@@ -7,6 +7,7 @@ This is a macOS-focused layout with full English and Russian language support.
 ## Features
 
 - **Home row mods** (Shift / Alt / Ctrl / Cmd) with opposite-hand triggering to avoid misfires
+- **Gaming mode** — hold Q + P for one second to toggle plain keys and dedicated gaming thumbs
 - **Key repeat** on a thumb key (tap = repeat last key, hold = NAV layer)
 - **Mouse emulation** layer with pointer movement, scrolling, and click buttons
 - **Conditional layers** — holding NAV + SYM together activates the UTIL layer
@@ -178,6 +179,23 @@ Add matching App Shortcuts in **System Settings > Keyboard > Keyboard Shortcuts 
 Hold `⌦/MOUSE` to activate this momentary layer. The left home-row modifier keys (`A`, `S`, `D`, `F`) are explicit plain key presses, so they bypass the base layer's modifiers for games. `W` and `G` remain transparent because they are already plain keys on `BASE`; other transparent keys also fall through to the base layer.
 
 Mouse emulation is enabled (`CONFIG_ZMK_POINTING=y`). If mouse does not work over BLE, you may need to refresh the HID descriptor (re-pair).
+
+### `GAME`
+
+Press **Q + P within 50 ms of each other**, then keep both held for **one second**, to enter GAME. Repeat the same gesture to return to BASE. Release both keys before switching again. The mode stays active after release.
+
+Releasing either key before the hold completes cancels the switch. Other key presses do not shorten the hold. The combo works only on BASE and GAME. A recognized Q + P chord consumes both keys, even when released early; individual Q and P presses still work. Q can wait up to 50 ms for combo detection. P can wait up to 80 ms on BASE because it also belongs to the existing O + P Russian helper combo, or 50 ms on GAME. The hold is measured from the first key press, as in ZMK v0.3's combo implementation.
+
+| Row | Left hand | Right hand |
+| --- | --- | --- |
+| Top | Q W E R T | Y U I O P |
+| Home | A S D F G | H J K L = |
+| Bottom | Z X C V B | N M , . / |
+| Thumbs | Ctrl · Space · Shift | Enter · Tab · Esc |
+
+All GAME bindings are plain key presses. Holding A/S/D/F sends letters; holding Space keeps Space pressed. Entering GAME clears active Caps Word so it cannot add Shift to movement keys; returning to BASE leaves Caps Word off until activated again. Typing combos and thumb layer-taps are inactive. The Russian helper punctuation positions become ordinary comma, period, and slash keys in GAME. Return to BASE for the normal typing layers and Russian helpers. Select an English input source when the game expects US QWERTY controls.
+
+Timing follows the [ZMK v0.3 combo behavior](https://github.com/zmkfirmware/zmk/blob/v0.3/app/src/combo.c) and [hold-tap configuration](https://github.com/zmkfirmware/zmk/blob/v0.3/docs/docs/keymaps/behaviors/hold-tap.mdx), verified October 2, 2026.
 
 ### `UTIL` (tri-layer: `NAV` + `SYM`)
 <table style="text-align:center;">

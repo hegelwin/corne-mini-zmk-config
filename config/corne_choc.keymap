@@ -22,6 +22,7 @@
 #define MAC    4
 #define UTIL   5
 #define MOUSE  6
+#define GAME   7
 
 / {
     chosen {
@@ -39,9 +40,20 @@
     /* ── Behaviors ── */
 
     behaviors {
+        game_switch_hold: game_switch_hold {
+            compatible = "zmk,behavior-hold-tap";
+            #binding-cells = <2>;
+            /* Q + P must stay held; other key presses cannot switch early. */
+            flavor = "tap-preferred";
+            tapping-term-ms = <1000>;
+            bindings = <&tog &none>;
+        };
+
         ru_caps_word: ru_caps_word {
             compatible = "zmk,behavior-extended-caps-word";
             #binding-cells = <0>;
+            /* GAME must not inherit implicit Shift from the typing mode. */
+            deactivate-on-layer = <GAME>;
             /*
              * Keep Caps Word active for the Russian helper letters that live on
              * non-alpha HID keys and apply Shift to them like normal A-Z keys.
@@ -1054,6 +1066,15 @@
     combos {
         compatible = "zmk,combos";
 
+        game_mode_combo {
+            /* Short chord window; the separate hold-tap supplies the long hold. */
+            timeout-ms = <50>;
+            key-positions = <0 9>;
+            bindings = <&game_switch_hold GAME 0>;
+            layers = <BASE GAME>;
+            /* Default release cancels the hold as soon as either key is released. */
+        };
+
         /*
          * Russian Universal helper combos.
          *
@@ -1188,6 +1209,17 @@
                 &kp A  &kp S    &kp D  &kp F  &trans   &msc SCRL_UP     &mmv MOVE_LEFT &mmv MOVE_DOWN  &mmv MOVE_RIGHT &trans
                 &trans &trans   &trans &trans &trans   &trans          &trans         &trans          &mkp MB4      &mkp MB5
                      &trans          &trans         &trans                    &mkp LCLK    &mkp MCLK     &mkp RCLK
+            >;
+        };
+
+        game_layer {
+            display-name = "GAME";
+            /* Plain keys support sustained movement, jumping, and modifiers. */
+            bindings = <
+                &kp Q    &kp W    &kp E    &kp R    &kp T       &kp Y    &kp U    &kp I     &kp O     &kp P
+                &kp A    &kp S    &kp D    &kp F    &kp G       &kp H    &kp J    &kp K     &kp L     &kp EQUAL
+                &kp Z    &kp X    &kp C    &kp V    &kp B       &kp N    &kp M    &kp COMMA &kp DOT   &kp FSLH
+                         &kp LCTRL &kp SPACE &kp LSHFT                  &kp RET  &kp TAB   &kp ESC
             >;
         };
 

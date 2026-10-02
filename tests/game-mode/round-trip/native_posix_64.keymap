@@ -1,0 +1,51 @@
+#include "../behavior_keymap.dtsi"
+
+&kscan {
+    events = <
+        /* Long Q + P enters GAME once and stays active after release. */
+        ZMK_MOCK_PRESS(0,0,10)
+        ZMK_MOCK_PRESS(0,9,2100)
+        ZMK_MOCK_RELEASE(0,0,10)
+        ZMK_MOCK_RELEASE(0,9,150)
+
+        /* Held movement and jump keys stay plain, with no layer taps. */
+        ZMK_MOCK_PRESS(0,10,300)
+        ZMK_MOCK_PRESS(0,11,300)
+        ZMK_MOCK_PRESS(0,12,300)
+        ZMK_MOCK_PRESS(0,13,300)
+        ZMK_MOCK_PRESS(0,31,300)
+        ZMK_MOCK_RELEASE(0,31,10)
+        ZMK_MOCK_RELEASE(0,13,10)
+        ZMK_MOCK_RELEASE(0,12,10)
+        ZMK_MOCK_RELEASE(0,11,10)
+        ZMK_MOCK_RELEASE(0,10,150)
+
+        /* The BASE Caps Word combo must not consume A + = in GAME. */
+        ZMK_MOCK_PRESS(0,10,10)
+        ZMK_MOCK_PRESS(0,19,10)
+        ZMK_MOCK_RELEASE(0,10,10)
+        ZMK_MOCK_RELEASE(0,19,150)
+
+        /* Dedicated thumb modifiers are immediate. */
+        ZMK_MOCK_PRESS(0,30,10)
+        ZMK_MOCK_PRESS(0,32,10)
+        ZMK_MOCK_RELEASE(0,32,10)
+        ZMK_MOCK_RELEASE(0,30,150)
+
+        /* A short chord cannot exit GAME. */
+        ZMK_MOCK_PRESS(0,0,10)
+        ZMK_MOCK_PRESS(0,9,100)
+        ZMK_MOCK_RELEASE(0,0,10)
+        ZMK_MOCK_RELEASE(0,9,150)
+
+        /* Reverse key order also works for a deliberate exit. */
+        ZMK_MOCK_PRESS(0,9,10)
+        ZMK_MOCK_PRESS(0,0,1100)
+        ZMK_MOCK_RELEASE(0,9,10)
+        ZMK_MOCK_RELEASE(0,0,150)
+
+        /* BASE home row modifier behavior is restored. */
+        ZMK_MOCK_PRESS(0,10,300)
+        ZMK_MOCK_RELEASE(0,10,150)
+    >;
+};

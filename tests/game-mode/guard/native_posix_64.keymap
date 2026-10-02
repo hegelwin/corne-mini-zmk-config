@@ -1,0 +1,43 @@
+#include "../behavior_keymap.dtsi"
+
+&kscan {
+    events = <
+        /* Individual long-held Q and P remain ordinary keys. */
+        ZMK_MOCK_PRESS(0,0,1100)
+        ZMK_MOCK_RELEASE(0,0,150)
+        ZMK_MOCK_PRESS(0,9,1100)
+        ZMK_MOCK_RELEASE(0,9,150)
+
+        /* The existing P + O helper retains its longer 80 ms window. */
+        ZMK_MOCK_PRESS(0,9,60)
+        ZMK_MOCK_PRESS(0,8,10)
+        ZMK_MOCK_RELEASE(0,9,10)
+        ZMK_MOCK_RELEASE(0,8,150)
+
+        /* Keys pressed outside the 50 ms chord window do not switch. */
+        ZMK_MOCK_PRESS(0,0,80)
+        ZMK_MOCK_PRESS(0,9,1100)
+        ZMK_MOCK_RELEASE(0,0,10)
+        ZMK_MOCK_RELEASE(0,9,150)
+
+        /* A recognized chord released just before one second cancels. */
+        ZMK_MOCK_PRESS(0,0,10)
+        ZMK_MOCK_PRESS(0,9,970)
+        ZMK_MOCK_RELEASE(0,0,100)
+        ZMK_MOCK_RELEASE(0,9,150)
+
+        /* Releasing P first also cancels, even if Q stays held. */
+        ZMK_MOCK_PRESS(0,9,10)
+        ZMK_MOCK_PRESS(0,0,20)
+        ZMK_MOCK_RELEASE(0,9,1100)
+        ZMK_MOCK_RELEASE(0,0,150)
+
+        /* Other key presses cannot cause an early switch. */
+        ZMK_MOCK_PRESS(0,0,10)
+        ZMK_MOCK_PRESS(0,9,200)
+        ZMK_MOCK_PRESS(0,1,10)
+        ZMK_MOCK_RELEASE(0,1,100)
+        ZMK_MOCK_RELEASE(0,0,10)
+        ZMK_MOCK_RELEASE(0,9,150)
+    >;
+};
