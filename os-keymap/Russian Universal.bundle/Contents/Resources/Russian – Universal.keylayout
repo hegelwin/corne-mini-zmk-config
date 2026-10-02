@@ -144,7 +144,7 @@
             <key code="65" output=","/>
             <key code="66" output="&#x001D;"/>
             <key code="67" output="*"/>
-            <key code="69" output="&#x0003;"/>
+            <key code="69" output="+"/>
             <key code="70" output="&#x001C;"/>
             <key code="71" output="&#x001B;"/>
             <key code="72" output="&#x001F;"/>
@@ -255,7 +255,7 @@
             <key code="65" output="Х"/>
             <key code="66" output="*"/>
             <key code="67" output="*"/>
-            <key code="69" output="Ъ"/>
+            <key code="69" output="+"/>
             <key code="70" output="+"/>
             <key code="71" output="&#x001B;"/>
             <key code="72" output="="/>
@@ -366,7 +366,7 @@
             <key code="65" output="."/>
             <key code="66" output="&#x001D;"/>
             <key code="67" output="*"/>
-            <key code="69" output="&#x0003;"/>
+            <key code="69" output="+"/>
             <key code="70" output="&#x001C;"/>
             <key code="71" output="&#x001B;"/>
             <key code="72" output="&#x001F;"/>
@@ -476,7 +476,7 @@
             <key code="65" output=","/>
             <key code="66" output="&#x001D;"/>
             <key code="67" output="*"/>
-            <key code="69" output="&#x0003;"/>
+            <key code="69" output="ъ"/>
             <key code="70" output="&#x001C;"/>
             <key code="71" output="&#x001B;"/>
             <key code="72" output="&#x001F;"/>
@@ -586,7 +586,7 @@
             <key code="65" output=","/>
             <key code="66" output="*"/>
             <key code="67" output="*"/>
-            <key code="69" output="&#x0003;"/>
+            <key code="69" output="Ъ"/>
             <key code="70" output="+"/>
             <key code="71" output="&#x001B;"/>
             <key code="72" output="="/>
@@ -696,7 +696,7 @@
             <key code="65" output="х"/>
             <key code="66" output="&#x001D;"/>
             <key code="67" output="*"/>
-            <key code="69" output="ъ"/>
+            <key code="69" output="+"/>
             <key code="70" output="&#x001C;"/>
             <key code="71" output="&#x001B;"/>
             <key code="72" output="&#x001F;"/>
@@ -807,7 +807,7 @@
             <key code="65" output=","/>
             <key code="66" output="&#x001D;"/>
             <key code="67" output="*"/>
-            <key code="69" output="&#x0003;"/>
+            <key code="69" output="+"/>
             <key code="70" output="&#x001C;"/>
             <key code="71" output="&#x001B;"/>
             <key code="72" output="&#x001F;"/>
@@ -917,7 +917,7 @@
             <key code="65" output=","/>
             <key code="66" output="&#x001D;"/>
             <key code="67" output="*"/>
-            <key code="69" output="&#x0003;"/>
+            <key code="69" output="+"/>
             <key code="70" output="&#x001C;"/>
             <key code="71" output="&#x001B;"/>
             <key code="72" output="&#x001F;"/>
@@ -1027,7 +1027,7 @@
             <key code="65" output=","/>
             <key code="66" output="&#x001D;"/>
             <key code="67" output="*"/>
-            <key code="69" output="&#x0003;"/>
+            <key code="69" output="+"/>
             <key code="70" output="&#x001C;"/>
             <key code="71" output="&#x001B;"/>
             <key code="72" output="&#x001F;"/>
@@ -1137,7 +1137,7 @@
             <key code="65" output=","/>
             <key code="66" output="*"/>
             <key code="67" output="*"/>
-            <key code="69" output="&#x0003;"/>
+            <key code="69" output="Ъ"/>
             <key code="70" output="+"/>
             <key code="71" output="&#x001B;"/>
             <key code="72" output="="/>

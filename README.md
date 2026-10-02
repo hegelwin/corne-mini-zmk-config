@@ -25,6 +25,8 @@ The firmware also includes a local extended Caps Word behavior so the Russian he
 
 To install: copy `Russian Universal.bundle` to `~/Library/Keyboard Layouts/` and add it in System Settings > Keyboard > Input Sources.
 
+The NUM `+` key sends keypad plus. In this layout, keypad plus produces `+`, Option + keypad plus produces `ъ`, and Option + Shift + keypad plus produces `Ъ`. Holding the BASE `M/Ь` key sends Option + keypad plus; Caps Word adds Shift for `Ъ`. After updating this mapping, install the updated layout bundle and flash the matching firmware together. Test `+`, `ъ`, and `Ъ` in your usual apps, since apps can intercept key combinations before text input.
+
 ## Layer maps
 
 In the tables below, `tap/hold` means tap action vs hold action, and `-/hold` means hold-only.
