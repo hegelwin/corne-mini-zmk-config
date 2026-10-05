@@ -2,50 +2,116 @@
 
 &kscan {
     events = <
-        /* Long Q + P enters GAME once and stays active after release. */
-        ZMK_MOCK_PRESS(0,0,10)
-        ZMK_MOCK_PRESS(0,9,2100)
-        ZMK_MOCK_RELEASE(0,0,10)
-        ZMK_MOCK_RELEASE(0,9,150)
+        /* Long P + far-right thumb enters GAME once and persists after release. */
+        ZMK_MOCK_PRESS(0,9,10)
+        ZMK_MOCK_PRESS(0,35,2100)
+        ZMK_MOCK_RELEASE(0,9,10)
+        ZMK_MOCK_RELEASE(0,35,150)
 
-        /* Held movement and jump keys stay plain, with no layer taps. */
-        ZMK_MOCK_PRESS(0,10,300)
+        /* W/A/S/D align with NAV arrows; held movement and Space stay plain. */
+        ZMK_MOCK_PRESS(0,2,300)
         ZMK_MOCK_PRESS(0,11,300)
         ZMK_MOCK_PRESS(0,12,300)
         ZMK_MOCK_PRESS(0,13,300)
+        ZMK_MOCK_PRESS(0,14,300)
         ZMK_MOCK_PRESS(0,31,300)
         ZMK_MOCK_RELEASE(0,31,10)
+        ZMK_MOCK_RELEASE(0,14,10)
         ZMK_MOCK_RELEASE(0,13,10)
         ZMK_MOCK_RELEASE(0,12,10)
         ZMK_MOCK_RELEASE(0,11,10)
-        ZMK_MOCK_RELEASE(0,10,150)
+        ZMK_MOCK_RELEASE(0,2,150)
 
-        /* The BASE Caps Word combo must not consume A + = in GAME. */
+        /* The BASE Caps Word positions must not consume Shift + M in GAME. */
         ZMK_MOCK_PRESS(0,10,10)
         ZMK_MOCK_PRESS(0,19,10)
         ZMK_MOCK_RELEASE(0,10,10)
         ZMK_MOCK_RELEASE(0,19,150)
 
-        /* Dedicated thumb modifiers are immediate. */
+        /* Ctrl is immediate; pinky Shift stays held while moving and jumping. */
         ZMK_MOCK_PRESS(0,30,10)
-        ZMK_MOCK_PRESS(0,32,10)
-        ZMK_MOCK_RELEASE(0,32,10)
         ZMK_MOCK_RELEASE(0,30,150)
+        ZMK_MOCK_PRESS(0,10,10)
+        ZMK_MOCK_PRESS(0,2,10)
+        ZMK_MOCK_PRESS(0,31,300)
+        ZMK_MOCK_RELEASE(0,31,10)
+        ZMK_MOCK_RELEASE(0,2,10)
+        ZMK_MOCK_RELEASE(0,10,150)
 
-        /* A short chord cannot exit GAME. */
+        /* The former Shift thumb is now a plain, sustained T key. */
+        ZMK_MOCK_PRESS(0,32,300)
+        ZMK_MOCK_RELEASE(0,32,150)
+
+        /* Tab, held Q, and slots 1-4 remain on the left. */
         ZMK_MOCK_PRESS(0,0,10)
-        ZMK_MOCK_PRESS(0,9,100)
-        ZMK_MOCK_RELEASE(0,0,10)
+        ZMK_MOCK_RELEASE(0,0,150)
+        ZMK_MOCK_PRESS(0,1,300)
+        ZMK_MOCK_RELEASE(0,1,150)
+        ZMK_MOCK_PRESS(0,20,10)
+        ZMK_MOCK_RELEASE(0,20,150)
+        ZMK_MOCK_PRESS(0,21,10)
+        ZMK_MOCK_RELEASE(0,21,150)
+        ZMK_MOCK_PRESS(0,22,10)
+        ZMK_MOCK_RELEASE(0,22,150)
+        ZMK_MOCK_PRESS(0,23,10)
+        ZMK_MOCK_RELEASE(0,23,150)
+        /* Voice control V stays held while moving with W. */
+        ZMK_MOCK_PRESS(0,2,10)
+        ZMK_MOCK_PRESS(0,24,300)
+        ZMK_MOCK_RELEASE(0,24,150)
+        ZMK_MOCK_RELEASE(0,2,150)
+
+        /* The right half provides slots 5-0 and extra letter actions. */
+        ZMK_MOCK_PRESS(0,5,10)
+        ZMK_MOCK_RELEASE(0,5,150)
+        ZMK_MOCK_PRESS(0,6,10)
+        ZMK_MOCK_RELEASE(0,6,150)
+        ZMK_MOCK_PRESS(0,7,10)
+        ZMK_MOCK_RELEASE(0,7,150)
+        ZMK_MOCK_PRESS(0,8,10)
+        ZMK_MOCK_RELEASE(0,8,150)
+        ZMK_MOCK_PRESS(0,25,10)
+        ZMK_MOCK_RELEASE(0,25,150)
+        ZMK_MOCK_PRESS(0,26,10)
+        ZMK_MOCK_RELEASE(0,26,150)
+        ZMK_MOCK_PRESS(0,15,10)
+        ZMK_MOCK_RELEASE(0,15,150)
+        ZMK_MOCK_PRESS(0,16,300)
+        ZMK_MOCK_RELEASE(0,16,150)
+        ZMK_MOCK_PRESS(0,17,10)
+        ZMK_MOCK_RELEASE(0,17,150)
+        ZMK_MOCK_PRESS(0,18,10)
+        ZMK_MOCK_RELEASE(0,18,150)
+        ZMK_MOCK_PRESS(0,27,10)
+        ZMK_MOCK_RELEASE(0,27,150)
+        ZMK_MOCK_PRESS(0,28,10)
+        ZMK_MOCK_RELEASE(0,28,150)
+        ZMK_MOCK_PRESS(0,29,10)
+        ZMK_MOCK_RELEASE(0,29,150)
+
+        /* RV parking P and remote Backspace/Esc remain individual actions. */
+        ZMK_MOCK_PRESS(0,9,300)
         ZMK_MOCK_RELEASE(0,9,150)
+        ZMK_MOCK_PRESS(0,34,10)
+        ZMK_MOCK_RELEASE(0,34,150)
+        ZMK_MOCK_PRESS(0,35,10)
+        ZMK_MOCK_RELEASE(0,35,150)
+
+        /* A short P + far-right thumb chord cannot exit GAME. */
+        ZMK_MOCK_PRESS(0,9,10)
+        ZMK_MOCK_PRESS(0,35,100)
+        ZMK_MOCK_RELEASE(0,9,10)
+        ZMK_MOCK_RELEASE(0,35,150)
 
         /* Reverse key order also works for a deliberate exit. */
-        ZMK_MOCK_PRESS(0,9,10)
-        ZMK_MOCK_PRESS(0,0,1100)
-        ZMK_MOCK_RELEASE(0,9,10)
-        ZMK_MOCK_RELEASE(0,0,150)
+        ZMK_MOCK_PRESS(0,35,10)
+        ZMK_MOCK_PRESS(0,9,1100)
+        ZMK_MOCK_RELEASE(0,35,10)
+        ZMK_MOCK_RELEASE(0,9,150)
 
         /* BASE home row modifier behavior is restored. */
         ZMK_MOCK_PRESS(0,10,300)
         ZMK_MOCK_RELEASE(0,10,150)
+
     >;
 };

@@ -2,11 +2,17 @@
 
 &kscan {
     events = <
-        /* Individual long-held Q and P remain ordinary keys. */
+        /* Individual Q and P holds remain ordinary BASE keys. */
         ZMK_MOCK_PRESS(0,0,1100)
         ZMK_MOCK_RELEASE(0,0,150)
         ZMK_MOCK_PRESS(0,9,1100)
         ZMK_MOCK_RELEASE(0,9,150)
+
+        /* The far-right thumb alone retains BASE Backspace and held Esc. */
+        ZMK_MOCK_PRESS(0,35,10)
+        ZMK_MOCK_RELEASE(0,35,150)
+        ZMK_MOCK_PRESS(0,35,1100)
+        ZMK_MOCK_RELEASE(0,35,150)
 
         /* The existing P + O helper retains its longer 80 ms window. */
         ZMK_MOCK_PRESS(0,9,60)
@@ -14,30 +20,31 @@
         ZMK_MOCK_RELEASE(0,9,10)
         ZMK_MOCK_RELEASE(0,8,150)
 
-        /* Keys pressed outside the 50 ms chord window do not switch. */
-        ZMK_MOCK_PRESS(0,0,80)
-        ZMK_MOCK_PRESS(0,9,1100)
-        ZMK_MOCK_RELEASE(0,0,10)
-        ZMK_MOCK_RELEASE(0,9,150)
+        /* Presses outside the 50 ms chord window do not switch. */
+        ZMK_MOCK_PRESS(0,9,90)
+        ZMK_MOCK_PRESS(0,35,1100)
+        ZMK_MOCK_RELEASE(0,9,10)
+        ZMK_MOCK_RELEASE(0,35,150)
 
-        /* A recognized chord released just before one second cancels. */
-        ZMK_MOCK_PRESS(0,0,10)
-        ZMK_MOCK_PRESS(0,9,970)
-        ZMK_MOCK_RELEASE(0,0,100)
-        ZMK_MOCK_RELEASE(0,9,150)
-
-        /* Releasing P first also cancels, even if Q stays held. */
+        /* Release just before one second cancels without sending P or Esc. */
         ZMK_MOCK_PRESS(0,9,10)
-        ZMK_MOCK_PRESS(0,0,20)
-        ZMK_MOCK_RELEASE(0,9,1100)
-        ZMK_MOCK_RELEASE(0,0,150)
+        ZMK_MOCK_PRESS(0,35,970)
+        ZMK_MOCK_RELEASE(0,9,100)
+        ZMK_MOCK_RELEASE(0,35,150)
+
+        /* Releasing the thumb first cancels even if P stays held. */
+        ZMK_MOCK_PRESS(0,9,10)
+        ZMK_MOCK_PRESS(0,35,20)
+        ZMK_MOCK_RELEASE(0,35,1100)
+        ZMK_MOCK_RELEASE(0,9,150)
 
         /* Other key presses cannot cause an early switch. */
-        ZMK_MOCK_PRESS(0,0,10)
-        ZMK_MOCK_PRESS(0,9,200)
+        ZMK_MOCK_PRESS(0,9,10)
+        ZMK_MOCK_PRESS(0,35,200)
         ZMK_MOCK_PRESS(0,1,10)
         ZMK_MOCK_RELEASE(0,1,100)
-        ZMK_MOCK_RELEASE(0,0,10)
-        ZMK_MOCK_RELEASE(0,9,150)
+        ZMK_MOCK_RELEASE(0,9,10)
+        ZMK_MOCK_RELEASE(0,35,150)
+
     >;
 };

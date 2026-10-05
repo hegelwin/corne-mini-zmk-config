@@ -43,7 +43,7 @@
         game_switch_hold: game_switch_hold {
             compatible = "zmk,behavior-hold-tap";
             #binding-cells = <2>;
-            /* Q + P must stay held; other key presses cannot switch early. */
+            /* P + far-right thumb must stay held; other presses cannot switch early. */
             flavor = "tap-preferred";
             tapping-term-ms = <1000>;
             bindings = <&tog &none>;
@@ -1069,7 +1069,7 @@
         game_mode_combo {
             /* Short chord window; the separate hold-tap supplies the long hold. */
             timeout-ms = <50>;
-            key-positions = <0 9>;
+            key-positions = <9 35>;
             bindings = <&game_switch_hold GAME 0>;
             layers = <BASE GAME>;
             /* Default release cancels the hold as soon as either key is released. */
@@ -1214,12 +1214,12 @@
 
         game_layer {
             display-name = "GAME";
-            /* Plain keys support sustained movement, jumping, and modifiers. */
+            /* Co-op controls stay on the left; extra actions and slots use the right. */
             bindings = <
-                &kp Q    &kp W    &kp E    &kp R    &kp T       &kp Y    &kp U    &kp I     &kp O     &kp P
-                &kp A    &kp S    &kp D    &kp F    &kp G       &kp H    &kp J    &kp K     &kp L     &kp EQUAL
-                &kp Z    &kp X    &kp C    &kp V    &kp B       &kp N    &kp M    &kp COMMA &kp DOT   &kp FSLH
-                         &kp LCTRL &kp SPACE &kp LSHFT                  &kp RET  &kp TAB   &kp ESC
+                &kp TAB  &kp Q    &kp W    &kp E    &kp R       &kp N5   &kp N6   &kp N7    &kp N8    &kp P
+                &kp LSHFT &kp A   &kp S    &kp D    &kp F       &kp B    &kp X    &kp C     &kp L     &kp M
+                &kp N1   &kp N2   &kp N3   &kp N4   &kp V       &kp N9   &kp N0   &kp G     &kp I     &kp Z
+                         &kp LCTRL &kp SPACE &kp T                      &kp RET  &kp BSPC  &kp ESC
             >;
         };
 

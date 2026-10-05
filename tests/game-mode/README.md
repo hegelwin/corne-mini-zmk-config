@@ -3,10 +3,14 @@
 These native ZMK v0.3 tests include the production keymap. The mock scanner maps
 columns 0–35 directly to the physical key positions.
 
-- `guard`: individual Q/P holds, the existing P + O helper, presses outside the chord window, release just
+- `guard`: individual Q/P holds, BASE thumb Backspace/Esc, the existing P + O helper,
+  presses outside the chord window, release just
   before the hold deadline, release of either chord key, and interrupting keys.
 - `round-trip`: one switch per long hold, persistent GAME activation, held
-  A/S/D/F/Space, inactive typing combos, dedicated Ctrl/Shift thumbs, canceled
+  W/A/S/D/F/Space at the shifted positions, inactive typing combos, dedicated
+  Ctrl thumb, pinky Shift while moving/jumping, sustained T thumb, held Q,
+  V while moving, slots 1–0 and extra letter actions,
+  individual GAME P, remote Esc, canceled
   short exit, reverse-order exit, and restored BASE home row mods.
 - `caps-word-entry`: active Caps Word survives normal typing layers, clears on
   GAME entry, stays cleared on exit, and can be reactivated on BASE.

@@ -7,7 +7,7 @@ This is a macOS-focused layout with full English and Russian language support.
 ## Features
 
 - **Home row mods** (Shift / Alt / Ctrl / Cmd) with opposite-hand triggering to avoid misfires
-- **Gaming mode** — hold Q + P for one second to toggle plain keys and dedicated gaming thumbs
+- **Gaming mode** — hold P + the far-right thumb for one second to toggle a WASD cluster aligned with NAV arrows
 - **Key repeat** on a thumb key (tap = repeat last key, hold = NAV layer)
 - **Mouse emulation** layer with pointer movement, scrolling, and click buttons
 - **Conditional layers** — holding NAV + SYM together activates the UTIL layer
@@ -184,9 +184,9 @@ Mouse emulation is enabled (`CONFIG_ZMK_POINTING=y`). If mouse does not work ove
 
 ### `GAME`
 
-Press **Q + P within 50 ms of each other**, then keep both held for **one second**, to enter GAME. Repeat the same gesture to return to BASE. Release both keys before switching again. The mode stays active after release.
+Press **P + the far-right thumb within 50 ms of each other**, then keep both held for **one second**, to enter GAME. Repeat the same physical gesture to return to BASE. This thumb is `Backspace/Esc` on BASE and plain `Esc` on GAME. Release both keys before switching again. The mode stays active after release.
 
-Releasing either key before the hold completes cancels the switch. Other key presses do not shorten the hold. The combo works only on BASE and GAME. A recognized Q + P chord consumes both keys, even when released early; individual Q and P presses still work. Q can wait up to 50 ms for combo detection. P can wait up to 80 ms on BASE because it also belongs to the existing O + P Russian helper combo, or 50 ms on GAME. The hold is measured from the first key press, as in ZMK v0.3's combo implementation.
+Releasing either key before the hold completes cancels the switch. Other key presses do not shorten the hold. The combo works only on BASE and GAME. A recognized chord consumes both keys, even when released early; their individual actions still work. P can wait up to 80 ms on BASE because it also belongs to the existing O + P Russian helper combo, or 50 ms on GAME. The far-right thumb can wait up to 50 ms for combo detection. The left-hand GAME controls have no switch-combo delay. The hold is measured from the first key press, as in ZMK v0.3's combo implementation.
 
 <table style="text-align:center;">
   <thead>
@@ -195,21 +195,27 @@ Releasing either key before the hold completes cancels the switch. Other key pre
     </tr>
   </thead>
   <tbody>
-    <tr><td>Q</td><td>W</td><td>E</td><td>R</td><td>T</td><td rowspan="2">&nbsp;</td><td rowspan="2">&nbsp;</td><td>Y</td><td>U</td><td>I</td><td>O</td><td>P</td></tr>
-    <tr><td>A</td><td>S</td><td>D</td><td>F</td><td>G</td><td>H</td><td>J</td><td>K</td><td>L</td><td>=</td></tr>
-    <tr><td>Z</td><td>X</td><td>C</td><td>V</td><td>B</td><td>&nbsp;</td><td>&nbsp;</td><td>N</td><td>M</td><td>,</td><td>.</td><td>/</td></tr>
+    <tr><td>Tab</td><td>Q</td><td>W</td><td>E</td><td>R</td><td rowspan="2">&nbsp;</td><td rowspan="2">&nbsp;</td><td>5</td><td>6</td><td>7</td><td>8</td><td>P</td></tr>
+    <tr><td>Shift</td><td>A</td><td>S</td><td>D</td><td>F</td><td>B</td><td>X</td><td>C</td><td>L</td><td>M</td></tr>
+    <tr><td>1</td><td>2</td><td>3</td><td>4</td><td>V</td><td>&nbsp;</td><td>&nbsp;</td><td>9</td><td>0</td><td>G</td><td>I</td><td>Z</td></tr>
     <tr>
       <td colspan="2" style="white-space:nowrap;"><code>Ctrl</code></td>
       <td colspan="2" style="white-space:nowrap;"><code>Space</code></td>
-      <td colspan="2" style="white-space:nowrap;"><code>Shift</code></td>
+      <td colspan="2" style="white-space:nowrap;"><code>T</code></td>
       <td colspan="2" style="white-space:nowrap;"><code>Enter</code></td>
-      <td colspan="2" style="white-space:nowrap;"><code>Tab</code></td>
+      <td colspan="2" style="white-space:nowrap;"><code>Backspace</code></td>
       <td colspan="2" style="white-space:nowrap;"><code>Esc</code></td>
     </tr>
   </tbody>
 </table>
 
-All GAME bindings are plain key presses. Holding A/S/D/F sends letters; holding Space keeps Space pressed. Entering GAME clears active Caps Word so it cannot add Shift to movement keys; returning to BASE leaves Caps Word off until activated again. Typing combos and thumb layer-taps are inactive. The Russian helper punctuation positions become ordinary comma, period, and slash keys in GAME. Return to BASE for the normal typing layers and Russian helpers. Select an English input source when the game expects US QWERTY controls.
+This is a shared starting layout for PEAK, RV There Yet?, and How to Fish. W/A/S/D occupy the same physical positions as NAV's up/left/down/right arrows. Q/E/R/F/T, slots 1–4, and V stay on the left with Ctrl/Space/Shift. The right half provides 5–0 and B/X/C/L/M/G/I/Z for extra actions. Esc is only on the far-right thumb, away from the left-hand movement controls.
+
+Shift is a plain modifier in the left pinky position, leaving the thumb free for Space when sprinting and jumping. T uses the former Shift thumb. V stays on the bottom row so hold-to-talk does not compete with Space for the thumb.
+
+PEAK uses 1–3 for items, 4 for its backpack, and V for push to talk. RV There Yet? also uses V for voice, with X for emotes and R/P/L for engine/parking/lights. These informed the placement; check the controls shown by your installed game before relying on a default. References checked October 5, 2026: [PEAK control report](https://www.destructoid.com/all-peak-key-bindings-how-to-change-controls/) and [RV There Yet? gameplay guide](https://progameguides.com/rv-there-yet/rv-there-yet-beginners-guide-tips/). The supplied How to Fish 1.1.3 controls screen confirms R for reload, F for inspect, V for push to talk, Tab for think, B for bait, X for unequip, and Z/C for weapon skins.
+
+All GAME bindings are plain key presses. Holding movement keys sends letters; holding Space keeps Space pressed. Entering GAME clears active Caps Word so it cannot add Shift to movement keys; returning to BASE leaves Caps Word off until activated again. Typing combos and thumb layer-taps are inactive. GAME does not contain H/J/K/N/O/U/Y or punctuation. Return to BASE for text chat, the normal typing layers, and Russian helpers. Select an English input source when the game expects US QWERTY controls.
 
 Timing follows the [ZMK v0.3 combo behavior](https://github.com/zmkfirmware/zmk/blob/v0.3/app/src/combo.c) and [hold-tap configuration](https://github.com/zmkfirmware/zmk/blob/v0.3/docs/docs/keymaps/behaviors/hold-tap.mdx), verified October 2, 2026.
 
